@@ -43,5 +43,8 @@ Designation: Research Associate at Center of AI and Big Data
 
 Email: psf.researcher@namal.edu.pk
 
-Contact Number: 0301-3218762
+Meeting Minutes Link:
+
+[https://docs.google.com/spreadsheets/d/1NSb5nk6hYYY6VWwzzc1LBuBUSblbSp7Wh-O9XMc0pco/edit?usp=sharing]
+
 
