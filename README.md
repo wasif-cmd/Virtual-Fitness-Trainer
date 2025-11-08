@@ -1,2 +1,2 @@
 # Software-Engineering-Project
-the project of creating fittness trainer
+AI Driven fittness trainer
