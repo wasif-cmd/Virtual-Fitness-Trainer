@@ -1,0 +1,310 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage[parfill]{parskip}
+\usepackage{booktabs}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Project Proposal},
+}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{Project Proposal}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+\onehalfspacing
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    \includegraphics[width=0.3\textwidth]{logo-namal.png}\\[1cm]
+    {\Large \textbf{Namal University, Mianwali}}\\[0.3cm]
+    {\large Department of Computer Science}\\[1cm]
+    {\Large \textbf{CSC-225 – Software Engineering}}\\[1cm]
+    
+    {\Large \textbf{Project Title}}\\[0.5cm]
+    {\Large \textit{Virtual Fitness Trainer}}\\[1cm]
+
+    \begin{flushleft}
+    \large
+    \textbf{Team Members:}\\[1cm]
+    \begin{tabular}{ll}
+        Name: & Muhammad Wasif \\
+        Roll Number: & NUM-BSCS-2024-59 \\
+        Email: & bscs24f59@namal.edu.pk \\[0.3cm]
+        
+        Name: & Muhammad Shahid \\
+        Roll Number: & NUM-BSCS-2024-56 \\
+        Email: & bscs24f56@namal.edu.pk \\[0.3cm]
+        
+        Name: & Hifza Bibi \\
+        Roll Number: & NUM-BSCS-2024-27 \\
+        Email: & bscs24f27@namal.edu.pk \\
+    \end{tabular}
+    \end{flushleft}
+    
+    \vfill
+
+    {\large Submission Date: November 9, 2025}
+    
+\end{titlepage}
+\newpage
+\section*{Requirement Provider Agreement}
+\addcontentsline{toc}{section}{Requirement Provider Agreement}
+
+This agreement is made between the student team and the Requirement Provider (RP) for the software engineering project titled \textbf{"Virtual Fitness Trainer"}.
+
+\subsection*{Requirement Provider Details}
+\begin{tabular}{ll}
+    \textbf{Name:} & Mr.Mutahar Khadim \\[0.3cm]
+    \textbf{Designation:} & Research Associate at Center of AI and Big Data \\[0.3cm]
+    \textbf{Email:} & psf.researcher@namal.edu.pk \\[0.3cm]
+    \textbf{Contact Number:} & 0301-3218762 \\[0.3cm]
+\end{tabular}
+
+\subsection*{Student Group Lead Details}
+\begin{tabular}{ll}
+    \textbf{Name:} & Muhammad Wasif \\[0.3cm]
+    \textbf{Roll Number:} & NUM-BSCS-2024-59 \\[0.3cm]
+    \textbf{Email:} & bscs24f59@namal.edu.pk \\[0.3cm]
+    \textbf{Contact Number:} & 0305-6487406 \\[0.3cm]
+\end{tabular}
+
+\subsection*{Terms of Agreement}
+\begin{enumerate}
+    \item The Requirement Provider agrees to collaborate in providing software's requirements throughout the semester.
+    \item The student team will conduct meetings with the RP at least once every two weeks throughout the semester and RP will cooperate for meeting.
+    \item The RP will provide timely feedback on project deliverables and prototypes.
+    \item All meetings will be documented through meeting minutes and photos.
+    \item The RP agrees to be available for consultation during the project development phase.
+\end{enumerate}
+
+\vspace{1cm}
+
+\noindent
+\begin{minipage}{0.45\textwidth}
+    \textbf{Requirement Provider Signature:}\\[1cm]
+    \includegraphics[width=0.5\textwidth]{rpsignature.PNG}\\
+    \rule{0.8\textwidth}{0.4pt}\\
+    Date: November 7, 2025
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \textbf{Group Lead Signature:}\\[1cm]
+    \includegraphics[width=0.5\textwidth]{glsign.PNG}\\
+    \rule{0.8\textwidth}{0.4pt}\\
+\end{minipage}
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introduction}
+
+This project is titled “Virtual Fitness Trainer,” which guides and helps the person on how they can achieve their health and fitness goals.
+
+Today, fitness and personality are growing areas of interest for a man or woman who is looking to improve their health. But the challenge is how to find personalized and easy-to-access fitness guidance. There are many software programs (BodBot and Home Workout-No Equipment, etc.) that are used to provide a workout or a diet plan, but these software do not give the best plan for people who have health issues.
+
+This project will develop a Fitness Training System that provides users with personalized and free of cost workout plans, tracks, and checks their progress, and offers professional tips to improve their fitness level and the shape of their body. The mission is to make such a fitness training system that provides workout and diet plans for people according to their health. 
+
+\section{Problem Statement}
+
+Fitness is important to many people, but they do not have plans and a trainer who can help them. Most fitness apps give the same workouts to everyone. 
+
+This fitness trainer contains some different features that make it very different from the other. These features are about diets and workout plans. If the person is feeling unwell or has other serious health issues, then what can he do, and as get the info from the end user that he wants to gain or lose weight. This makes it hard to stay motivated and see progress. The system will solve this by giving users a workout plan that is more fit and applicable to achieve their personal goals. It will also help them to track their progress on a daily basis as well as weekly. So they can stay on track and reach their goals.
+
+\section{Project Objectives}
+
+The main objectives of this project are:
+
+\begin{itemize}[leftmargin=*]
+\item To allow users to give their details(weight, height, gender, age, etc.) to create their workout and diet plans.
+\item To enable users to track their progress.
+\item To provide workout and diet plans based on user performance and health conditions.
+\item To design a user-friendly interface that increases the user engagement and consistency.
+\end{itemize}
+
+\section{Stakeholder Identification}
+
+This section identifies all the people or groups who will interact with or be affected by the fitness training system.
+
+\subsection{Primary Stakeholders}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{End Users:} The end users are those persons who use our system the most for their fitness guide. They will set their fitness goals and follow the workout and diet plans. The goal they have is to improve their health. The system will be easy to use and personalized to help them in terms of their motivations and achievements of their goals.
+    \item \textbf{System Administrators:} This person handles the technical side of things. He will make sure the system is performing good and works well. He also manages user accounts and fixes any issues if available.
+    \item \textbf{Fitness Trainer:} He is the professional person who decides the plans and activities that are done by the end users. He will make sure the plans are safe and effective and have a good impact on user health.
+    \item \textbf{Project Development Team:} This team has some members, such as developers, designers, and testers, etc. They play a key role in the development of the project.
+\end{itemize}
+
+\subsection{Secondary Stakeholders}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Requirement Provider (RP):} He guides the team, provides the requirements of the software, and gives feedback.
+    \item \textbf{Instructor(Ms.Asiya Batool):} She evaluates the project progress and outcome.
+    \item \textbf{Healthcare Experts/Nutritionists:} They may give guidance or data that will be used in the diet plans.
+    \item \textbf{Owner/Client:} Owner is the person who has invested in the creation of the system. He can improve further and promote the system. He will also make sure the system has full resources for its development and success. 
+\end{itemize}
+
+\section{Software Development Methodology}
+
+\subsection{Chosen Methodology}
+For the development of our project, the spiral model has been chosen. 
+
+\subsection{Justification}
+\begin{itemize}
+    \item This project is a long-term project, and the spiral model is best for long-term projects.
+    \item This project has complicated and ambiguous requirements, which can create risks in the future. The spiral model is the best for handling risks.
+    \item In the spiral model, the team can make a prototype at different stages to get customer(RP) feedback.
+\end{itemize}
+
+\subsection{Development Schedule}
+Assuming a one-year development(January to December) timeline, the project will be divided into the following phases:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|p{2cm}|p{3.5cm}|p{5.5cm}|p{3.5cm}|}
+\hline
+\textbf{Time Frame} & \textbf{Spiral} & \textbf{Major Activities} & \textbf{Deliverables} \\
+\hline
+Jan to Mar & \textbf{Spiral 1:} Requirements Gathering \& Initial Planning & 
+Identify the problem and define system goals.
+\newline Meet RP and collect initial requirements.
+\newline Conduct risk analysis.
+\newline Create project proposal. & 
+• Project Proposal
+\newline • Software Requirement Specification(SRS) document
+\\
+\hline
+Apr to Jun & Spiral 2: Prototyping \& Designing & 
+Develop a basic prototype (login, registration, home screen).
+\newline Make the software design.
+\newline Conduct risk evaluation analysis.
+\newline Get RP(customer) feedback on prototype. & 
+• Prototype v1
+\newline •Design Documents(SDS)
+\newline • Risk Report 1 \\
+\hline
+Jul to Sep & Spiral 3: Development(Coding) \& Integration & 
+Implement core modules (workout plans, diet tracking, progress charts).
+\newline Integrate backend.
+\newline Perform testing on key features.
+\newline Conduct second review meeting with RP. & 
+• Functional Prototype v2
+\newline • Test Report 1
+\newline •Updated Documentation \\
+\hline
+Oct to Dec & Spiral 4: Testing, Evaluation \& Final Deployment & 
+Conduct system testing and performance analysis.
+\newline Fix bugs and optimize features.
+\newline Collect final user feedback.
+\newline Prepare project report and documentation. & 
+• Final Product
+\newline • Test Report 2
+\newline • User Manual
+\newline • Final Presentation \\
+\hline
+\end{tabular}
+\caption{Software Development Schedule (One Year Timeline)}
+\label{tab:year_schedule}
+\end{table}
+
+\section{Tools and Technologies}
+
+The following tools and technologies will be used for the development of this system:
+
+\subsection{Frontend Development}
+We will develop the Fitness Trainer App using \textbf{React Native}. As the developer, we will write the code in this framework so that the app works smoothly on both iOS and Android devices. The team will develop the Fitness Trainer Software using the Python language. 
+
+\subsection{Backend Development}
+For the backend, We will use \textbf{Node.js} along with \textbf{Express.js}. We will write all the backend logic using Node.js 
+
+\subsection{Database}
+The app will store all user information, workout details, and diet plans in a MongoDB database. We will use \textbf{MongoDB} because it works well with React and Node.js and allows us to efficiently manage all user data.
+
+\subsection{Development Environment}
+We will use \textbf{Visual Studio Code} as the main code editor for the project. It is lightweight and supports many useful extensions that will help in coding and debugging.
+\subsection{Version Control}
+All project files will be managed using \textbf{GitHub}. This will track all code updates and make collaboration easier if multiple people work on the project.
+\subsection{Deployment}
+We will deploy the backend of the app on \textbf{Vercel}. This platform allows the backend to be accessible online, so users can use the app from anywhere.
+\section{References}
+\begin{enumerate}[label={[\arabic*]}]
+    \item BodBot, ``BodBot Personal Trainer,'' \emph{Google Play Store}, 2025. [Online]. Available: \url{https://play.google.com/store/apps/details?id=com.bodbot.trainer}. [Accessed: 8-Nov-2025].
+    
+    \item Leap Fitness Group, ``Home Workout – No Equipment,'' \emph{Google Play Store}, 2025. [Online]. Available: \url{https://play.google.com/store/apps/details?id=homeworkout.homeworkouts.noequipment}. [Accessed: 7-Nov-2025].
+
+\end{enumerate}
+
+\subsection{AI Tool Usage Documentation}
+
+The following prompts and queries were used during the preparation of this proposal:
+
+\begin{enumerate}
+    \item this file contain the requirements to make a project proposal of SE course.You have to give me a latex code for proposal having the structure of proposal as per instructions given in that proposal document.On title page add a picture (i will change name later) for logo of university In RP agreement add  add the details of RP and Student group lead details and add places for signatures of RP and student group lead and add pitures for signatures(i will rename them). Add sections for all other things. In references add any random 2 to 5 references in IEEE style and  AI prompts but the code should be without any errors
+    \item I have to make project proposal of SE project so tell me how to write an introduction of project in proposal give some examples
+    \item Our project is “fitness trainer” who guides and tell the person who can achieve the health and fitness goals     mark the gramatical mistakes in it
+    \item I have made a google sheet for meeting minutes as it is a requirement of proposal milestone. what i have to write in agenda and action items columns?Give some sample examples
+    \item what i have to write in key discussion points?Explain the difference between agenda and key discussion points
+    \item Fitness is important to many people, but they do not have plans and a trainer who can help them. Most fitness apps give the same workouts to everyone. But our fitness trainer contains some different features that make it very different from the other.  These features are about diets and workout plans if the person is ill then what he can do and as get the info from the end user that he want to gain or lose weight. This makes it hard to stay motivated and see progress. The system will solve this by giving users a workout plan that is more fits and applicable to achieve their personal goals. It will also help them to track their progress at daily basses as well as weekly. So they can stay on track and reach their goals.  check the grammer mistakes
+    \item what is the difference between primary and secondary stakeholders
+    \item how to write the objectives of any software
+    \item What tools and technologies(more best) are used in the software development
+    \item what i have to write in references
+    \item I have to choose the software development methodology for my project so give me the parameters on which i can choose the suitable methodology donnot suggest me the  methodology
+
+    \item mujhy is j txt hy sara ka sara hahaiay withowithout any hanging
+the whole project is devided into 3 part first on e is introductoin problem statement  and stachholder 
+and this is the portin that is dne by me 
+s kindy eet me te hw i can d it 
+give me an eexampe
+    \item 1. Introduction
+          Our project is “fitness trainer” who guides and tell the person who can achieve the health and fitness goals
+Context: 
+          Now a days  fitness and personality are growing areas of interest of a man wher he  is  looking to improve their health. But the challenge is that how he find personalized and  easy-to-access fitness guidance.
+
+Background: 
+          Many people are struggling for making their fitness plans, which is  because of lack of knowledge, motivation, or finding a suitable routine. They do not know from where they can get guidance about their fitness.
+Overview: 
+      Our project will develop a Fitness Trainer System that provides users a personalized and free of cost workout plans, tracks and checks their progress and offers professional tips to improve their fitness level and shape of their body. Our mission to make fitness training accessible to each individual who needs it.
+
+2. Problem Statement
+          Fitness is important to many people but they do not have plans and a trainer who can be tough them. Most fitness apps give the same workouts to everyone. But our fitness trainer contains some different features that make him very different from the other.  These features are about diets and if the person is ill then what he can do and as get the info from the end user that he want to gain or lose weight. This makes it hard to stay motivated and see progress. The system will solve this by giving users a workout plan that is more fits and applicable to achieve their personal goals. It will also help them to track their progress at daily basses as well as weekly. So they can stay on track and reach their goals.
+
+3. Stakeholder Identification 
+1.	End Users 
+The end users are those persons whose use our system the most fr their fitness guide. They will set their fitness goals and follow the workout plans. The goal they have is to improve their health. The system will be easy to use and personalized to help them in term of motivations and achievements of their goals.
+2.	Fitness Trainer 
+He is the professional person who decides the panes and activities that are done by the end users. He will make sure sure the plans are safe and effective and have a good impact on users heath.
+3.	System Administrator
+This person handle the technical side of things. He will make sure the system good form and work well. He also manage user accounts and fix any issues if available.
+4.	Owner 
+Owner is the person who has invested in the creation of the system. He has the ability to improve further and promote the system. He will also make sure the system has full resources for its success. 
+
+check and tell me where where i have made spell and gramatica mistakes   without changing it
+    \item Imagine you are requirement provider and I am a developer You have to provide me 5 objective Clear, measurable, and achievable goal in term of software enginnering
+You RP of a fitness trainer app
+    \item It should also get user info while registeration and also recommend the diet plan to the user make it requrement 6
+    \item Now provide me tools and technologies to develop this project
+    \item Write at least 4 objective that why we are building this project and how it is different form other's like Ye software men aur women kaliye fitness plans dai ga on the basis of their healt Fitness plans main workout plan,diet plan ajaty hain
+    \item i gave you the LateX code of a document (also given in .pdf format) you have to make it professional and give it a best look by changing identation,boldness,text font etc.(where necessary) instructions:donnot change any text,give me the code without any comments
+    \item i have to add these links to references as i used two apps to search the inefficiency:https://play.google.com/store/apps/details?id=com.bodbot.trainer
+https://play.google.com/store/apps/details?id=homeworkout.homeworkouts.noequipment so give a code of latex to cite them in IEEEE citation style
+\item every section has a number before name how to remove number like 1,1.1
+\end{enumerate}
+\end{document}
