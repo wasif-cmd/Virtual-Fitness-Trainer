@@ -1,0 +1,1257 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{SRS Document}
+\lhead{Virtual Fitness Trainer}
+\rfoot{Page \thepage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Software Requirements Specification - Virtual Fitness Trainer},
+    pdfpagemode=FullScreen,
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+
+\includegraphics[width=0.3\textwidth]{logo-namal.png}
+
+\vspace{1cm} 
+
+{\huge Software Requirements Specification \par}
+\vspace{0.5cm}
+{for \par}
+\vspace{0.5cm}
+{\Huge Virtual Fitness Trainer \par}
+
+\vspace{1cm}
+
+{Version 1.0 \par}
+
+\vspace{1cm}
+
+{Prepared by \par}
+Muhammad Wasif (NUM-BSCS-2024-59) \par
+Muhammad Shahid (NUM-BSCS-2024-56) \par
+Hifza Bibi (NUM-BSCS-2024-27) \par
+
+\vspace{1cm}
+
+Namal University, Mianwali \par
+Department of Computer Science \par
+
+\vspace{1cm}
+
+December 28, 2025 \par 
+
+\vspace{2cm}
+
+{Prepared for \par}
+Mr. Mutahar Khadim \par
+Research Associate at Center of AI and Big Data \par
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\subsection{Purpose}
+This Software Requirements Specification (SRS) document provides a complete description of all the functions and specifications of the Virtual Fitness Trainer system. This document is intended for both the stakeholders and the developers of the system.
+
+The purpose of this document is to:
+\begin{itemize}
+    \item Define the functional and non-functional requirements of the Virtual Fitness Trainer system.
+    \item Provide a reference for the validation and verification of the system.
+    \item Facilitate the transfer of the software product to new users and maintainers.
+    \item Serve as a baseline for future enhancements and modifications.
+\end{itemize}
+
+The intended audience for this document includes:
+\begin{itemize}
+    \item Project managers who need to understand the scope and requirements.
+    \item Software developers who will implement the system.
+    \item Testers who will validate the system.
+    \item Requirement Provider and other stakeholders.
+    \item System administrators who will maintain the system.
+    \item Documentation writers who will create user manuals.
+\end{itemize}
+
+\subsection{Scope}
+Virtual Fitness Trainer is a comprehensive fitness guidance system designed to provide personalized workout and diet plans to users based on their individual health conditions, fitness goals, and physical characteristics. The system will address the growing need for accessible, customized fitness guidance that adapts to users' health conditions and specific requirements.
+
+The software product will be called \textbf{Virtual Fitness Trainer}. The system will enable users to:
+
+\begin{itemize}
+    \item Register and create personalized profiles with health information and physical characteristics.
+    \item Receive AI-generated workout plans tailored to their fitness goals.
+    \item Get customized diet plans based on their health conditions and nutritional needs.
+    \item Track daily and weekly fitness progress.
+    \item View workout simulations and demonstrations.
+    \item Receive recommendations based on their performance.
+\end{itemize}
+
+The major benefits of the Virtual Fitness Trainer system include:
+
+\begin{itemize}
+    \item \textbf{Personalization:} Unlike generic fitness apps, this system provides plans according to individual health conditions, age, gender, weight, height, and fitness goals.
+    \item \textbf{Accessibility:} Free of cost fitness guidance available to anyone.
+    \item \textbf{Health-Conscious:} Special consideration for users with health issues or medical conditions.
+    \item \textbf{Motivation:} Progress tracking features to keep users engaged and motivated.
+    \item \textbf{Educational:} Workout simulations to ensure proper form and method for workouts.
+\end{itemize}
+
+The goals of this software product are to:
+\begin{itemize}
+    \item Provide personalized fitness solutions to users regardless of their current fitness level.
+    \item Increase user engagement by giving recommendations and showing a progress report.
+    \item Ensure user safety by considering health conditions in plan generation.
+    \item Use AI and ML technology to continuously improve recommendations for diets and workouts.
+    \item Create a user-friendly interface for easy to use.
+\end{itemize}
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Term} & \textbf{Definition} \\
+\hline
+SRS & Software Requirements Specification \\
+\hline
+IEEE & Institute of Electrical and Electronics Engineers \\
+\hline
+RP & Requirement Provider \\
+\hline
+UI & User Interface \\
+\hline
+API & Application Programming Interface \\
+\hline
+BMI & Body Mass Index - a measure of body fat based on height and weight \\
+\hline
+AI & Artificial Intelligence \\
+\hline
+ML & Machine Learning \\
+\hline
+NFR & Non-Functional Requirement \\
+\hline
+FR & Functional Requirement \\
+\hline
+Workout Plan & A structured schedule of exercises to achieve specific fitness goals \\
+\hline
+Diet Plan & A customized program of meals and caloric intake for the users\\
+\hline
+Progress Tracking & The system feature that monitors and displays user fitness improvements over time \\
+\hline
+Workout Simulation & Visual demonstration of exercises showing proper form and method for workouts \\
+\hline
+User Profile & Collection of user information including health data, and fitness goals \\
+\hline
+\end{tabular}
+\end{table}
+\subsection{References}
+\begin{enumerate}
+    \item IEEE Std 830-1984, IEEE Guide to Software Requirements Specifications
+    \item Project Proposal: Virtual Fitness Trainer, November 9, 2025
+    \item BodBot, "BodBot Personal Trainer," Google Play Store, 2025
+    \item Leap Fitness Group, "Home Workout – No Equipment," Google Play Store, 2025
+    \item Anthropic, Claude,'' [Large language model], 2025. Available: https://www.anthropic.com 
+    \item xAI, Grok,'' [Large language model], 2025. Available: https://x.ai
+\end{enumerate}
+
+\subsection{Overview}
+The remainder of this document is organized as follows:
+
+\begin{itemize}
+    \item \textbf{Section 2 - Overall Description:} This section provides a general overview of the Virtual Fitness Trainer system, including product perspective, product functions, user characteristics, constraints, assumptions, and dependencies.
+    
+    \item \textbf{Section 3 - Specific Requirements:} This section contains detailed descriptions of all functional and non-functional requirements, external interface requirements, and other specifications necessary for system development. This includes 10 functional requirements covering user registration, AI-based plan generation, workout simulations, progress tracking, and system administration.
+    
+    \item \textbf{Appendices:} This section include Context Diagram, Use Case Diagram, and traceability matrix for requirement tracking.
+\end{itemize}
+
+\newpage
+
+\section{Overall Description}
+
+\subsection{Product Perspective}
+Virtual Fitness Trainer is an independent, self-contained fitness guidance system that operates as a complete solution for personalized fitness planning and tracking. The system will be a web-based platform.
+
+\subsubsection{System Interfaces}
+The Virtual Fitness Trainer system does not interface with external systems but operates as a standalone platform. However, it may integrate with:
+\begin{itemize}
+    \item Cloud storage services for backup and data synchronization
+    \item Email services for user notifications and password recovery
+    \item Analytics services for monitoring system usage and performance
+\end{itemize}
+
+\subsubsection{User Interfaces}
+The system will provide the following user interfaces:
+\begin{itemize}
+    \item \textbf{Web Application Interface:} Python-based web interface offering similar functionality accessible through web browsers
+    \item \textbf{Administrator Console:} Web-based administrative interface for system monitoring, user management, and content moderation
+    \item \textbf{Workout Simulation Interface:} Visual demonstration module showing animated or video-based exercise demonstrations
+\end{itemize}
+
+All interfaces will follow responsive design principles and accessibility standards to ensure usability across different devices and for users with disabilities.
+
+\subsubsection{Hardware Interfaces}
+The system will interact with the following hardware:
+\begin{itemize}
+    \item \textbf{Network Interface:} internet connection for cloud synchronization
+\end{itemize}
+
+\subsubsection{Software Interfaces}
+The system will interact with the following software components:
+\begin{itemize}
+    \item \textbf{Operating System:} Windows, macOS, Linux for web access.
+    \item \textbf{Database:} MongoDB 5.0+ for data storage and retrieval.
+    \item \textbf{Backend Framework:} Node.js 16+ with Express.js 4.x.
+    \item \textbf{Machine Learning Framework:} TensorFlow or PyTorch for AI model implementation.
+    \item \textbf{Authentication Service:} JWT-based authentication system.
+\end{itemize}
+
+\subsubsection{Communications Interfaces}
+\begin{itemize}
+    \item \textbf{Network Protocols:} HTTPS for secure communication between client and server.
+    \item \textbf{API Architecture:} RESTful API following industry standards.
+    \item \textbf{Data Formats:} JSON for data exchange between frontend and backend.
+    \item \textbf{Real-time Communication:} WebSocket for potential future real-time features.
+\end{itemize}
+
+\subsubsection{Operations}
+\begin{itemize}
+    \item \textbf{User-initiated Operations:} Registration, login, profile updates, plan generation, progress logging
+    \item \textbf{Automated Operations:} Daily plan notifications, weekly progress reports, plan regeneration based on progress
+    \item \textbf{Administrative Operations:} User account management, system monitoring, content updates, model retraining
+\end{itemize}
+
+\subsection{Product Functions}
+The major functions that Virtual Fitness Trainer will perform include:
+
+\begin{enumerate}
+    \item \textbf{User Management and Authentication:}
+    \begin{itemize}
+        \item User registration with detailed profile creation.
+        \item Secure login and authentication.
+        \item Profile management and updates.
+        \item Password recovery functionality.
+    \end{itemize}
+    
+    \item \textbf{AI-Powered Plan Generation:}
+    \begin{itemize}
+        \item Generate personalized workout plans using trained AI models.
+        \item Create customized diet plans based on nutritional requirements.
+        \item Adapt plans based on health conditions and constraints.
+        \item Consider user goals (weight loss, muscle gain, maintenance).
+    \end{itemize}
+    
+    \item \textbf{Workout Simulation and Demonstration:}
+    \begin{itemize}
+        \item Display visual simulations of exercises.
+        \item Provide step-by-step instructions for each workout.
+        \item Show proper form and technique.
+        \item Include difficulty levels and variations.
+    \end{itemize}
+    
+    \item \textbf{Progress Tracking and Analytics:}
+    \begin{itemize}
+        \item Track daily workout completion.
+        \item Monitor weight and measurement changes.
+        \item Generate weekly and monthly progress reports.
+        \item Visualize progress through charts and graphs.
+    \end{itemize}
+    
+    \item \textbf{Adaptive Recommendations:}
+    \begin{itemize}
+        \item Adjust plans based on user performance.
+        \item Suggest alternative exercises for health conditions.
+        \item Provide motivational tips and guidance.
+        \item Recommend plan modifications based on progress.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{User Characteristics}
+The expected users of Virtual Fitness Trainer include:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3.5cm}|p{9.5cm}|}
+\hline
+\textbf{User Type} & \textbf{Characteristics} \\
+\hline
+Fitness Beginners & Technical expertise: Basic computer usage, Education: High school or above, Experience: No prior fitness software experience required, Age: 18-65 years \\
+\hline
+Health-Conscious Individuals & Technical expertise: Moderate, Education: Varies, Experience: May have used other fitness softwares, Special needs: Users with health conditions requiring modified exercises \\
+\hline
+Fitness Enthusiasts & Technical expertise: Moderate to High, Education: Varies, Experience: Familiar with fitness terminology and apps, Goals: Advanced workout plans and detailed tracking \\
+\hline
+System Administrators & Technical expertise: High, Education: Computer Science or IT background, Experience: System administration and database management, Responsibilities: System maintenance and user support \\
+\hline
+Fitness Trainers & Technical expertise: Moderate, Education: Certified fitness trainers or healthcare professionals, Experience: Professional fitness guidance, Role: Plan validation and content review \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Constraints}
+The following constraints apply to the development of this system:
+
+\begin{enumerate}
+    \item \textbf{Regulatory Policies:} The system must follow the health data privacy regulations and ensure user data protection according to applicable laws.
+    
+    %\item \textbf{Hardware Limitations:} The mobile application must function on devices with a minimum 2GB RAM and operate smoothly on older smartphone models.
+    
+    \item \textbf{Interface Requirements:} The system must provide an easy to use interfaces suitable for users with different technical expertise of users.
+    
+    \item \textbf{Parallel Operations:} The system must support multiple users accessing workout plans and tracking progress at a time.
+    
+    \item \textbf{Audit Functions:} All user activities and plan generations must be logged for quality assurance and system improvement.
+    
+    \item \textbf{Higher-Order Language Requirements:} Development must use Python for the web interface, and Node.js for backend services.
+    
+    \item \textbf{Reliability Requirements:} The system must maintain high availability with minimum downtime for plan access and progress tracking.
+    
+    \item \textbf{Criticality of Application:} As the system provides health-related guidance, it must provide accurate recommendations.
+    
+    \item \textbf{Safety and Security Considerations:} User health data must be encrypted and stored safely. The system must include warnings for users with serious health conditions to consult healthcare professionals.
+\end{enumerate}
+
+\subsection{Assumptions and Dependencies}
+\label{sec:assumptions}
+The following assumptions and dependencies have been made during the preparation of this SRS:
+
+\textbf{Assumptions:}
+\begin{enumerate}
+    \item Users have access to computers or devices with web browsers and internet connection.
+    \item Users will provide accurate information during registration for effective plan generation.
+    \item Users understand basic fitness terminology or will learn through provided guidance.
+    \item The AI model training data includes different fitness plans suitable for various health conditions.
+    \item Users will consult healthcare professionals for serious health conditions before starting any fitness program.
+\end{enumerate}
+
+\textbf{Dependencies:}
+\begin{enumerate}
+    \item Availability of MongoDB cloud hosting services for database management.
+    \item Reliable deployment platform (Vercel) for backend hosting.
+    \item Access to quality training data for AI model development.
+    \item Availability of workout simulation videos.
+    \item Continuous internet connection for real-time plan generation.
+\end{enumerate}
+
+\newpage
+
+\section{Specific Requirements}
+
+\subsection{Functional Requirements}
+
+This section describes the functional requirements of the Virtual Fitness Trainer system.
+
+\subsubsection{FR-1: User Registration and Profile Creation}
+
+\paragraph{Introduction}
+This function enables new users to register in the system and create profiles. The registration process collects essential user information, including demographics, health data, and fitness goals. This information serves as the foundation for generating personalized workout and diet plans.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Personal Information:} Name (string, 2-50 characters), Email (valid email format), Password (minimum 8 characters with uppercase, lowercase, and numbers), Age (integer, 18-100 years), Gender (Male/Female/Other).
+    \item \textbf{Physical Measurements:} Height (numeric, in cm or feet/inches, range 120-250 cm), Weight (numeric, in kg or lbs, range 30-300 kg), Current Body Type (Slim/Average/Athletic/Overweight).
+    \item \textbf{Health Information:} Existing health conditions (multiple selection: diabetes, hypertension, joint problems, heart conditions, asthma, other, none), Injuries or physical limitations (text field, optional), Medications (text field, optional).
+    \item \textbf{Fitness Goals:} Primary goal (Weight Loss/Muscle Gain/Maintain Fitness/Improve Endurance/General Health), Target weight (numeric, optional), Timeline (1-12 months).
+    \item \textbf{Activity Level:} Current fitness level (Beginner/Intermediate/Advanced), Preferred workout frequency (1-7 days per week).
+\end{itemize}
+
+\paragraph{Processing:}
+The system shall perform the following operations:
+\begin{enumerate}
+    \item Validate all input fields for correct format and acceptable ranges.
+    \item Check email uniqueness in the database to prevent duplicate accounts.
+    \item Hash and securely store the password using bcrypt or similar encryption.
+    \item Calculate BMI from height and weight: BMI = weight(kg) / [height(m)]².
+    \item Validate age restrictions (minimum 18 years for liability purposes).
+    \item Store all user information in the MongoDB database.
+    \item Generate a unique user ID for database reference.
+    \item Create an initial user profile document with all provided information.
+    \item Send a verification email to the provided email address.
+\end{enumerate}
+
+\textbf{Validity checks:}
+\begin{itemize}
+    \item Email format validation using regex pattern.
+    \item Password strength validation (minimum 8 characters, mixed case, numbers).
+    \item Age range validation (18-100 years).
+    \item Height and weight within realistic human ranges.
+    \item All mandatory fields must be completed.
+\end{itemize}
+
+\textbf{Error handling:}
+\begin{itemize}
+    \item \textbf{Duplicate Email:} Display message "This email is already registered. Please use a different email or login."
+    \item \textbf{Weak Password:} Display message "Password must be at least 8 characters with uppercase, lowercase, and numbers."
+    \item \textbf{Invalid Input Range:} Display message "Please enter a valid value for [field name] within the acceptable range."
+    \item \textbf{Database Connection Error:} Display message "Registration failed. Please try again later."
+\end{itemize}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Success Confirmation:} Registration success message with user ID, displayed on screen and sent via email
+    \item \textbf{User Profile Document:} Complete user profile stored in database with timestamp
+    \item \textbf{Verification Email:} Email containing account verification link sent to user's email address
+    \item \textbf{Navigation:} Automatic redirect to profile completion or dashboard page after successful registration
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-1.1:} The system shall allow users to register by providing name, email, password, age, gender, height, weight, health conditions, and fitness goals.
+
+\textbf{FR-1.2:} The system shall validate all registration inputs and ensure email uniqueness before account creation.
+
+\textbf{FR-1.3:} The system shall securely store user passwords using encryption and never store passwords in plain text.
+
+\textbf{FR-1.4:} The system shall calculate and store the user's BMI during registration for future reference.
+
+\textbf{FR-1.5:} The system shall send a verification email to the user after successful registration.
+
+\subsubsection{FR-2: User Authentication and Login}
+
+\paragraph{Introduction}
+This function provides secure access to the system through user authentication. Users must verify their identity using registered credentials to access personalized features, workout plans, and progress tracking.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Email:} Registered email address (string, valid email format)
+    \item \textbf{Password:} User password (string, minimum 8 characters)
+    \item \textbf{Remember Me:} Optional checkbox for persistent login (boolean)
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Accept email and password from the login form.
+    \item Query the database for a user record matching the provided email.
+    \item Compare the provided password with the stored encrypted password using bcrypt.
+    \item Generate JWT (JSON Web Token) upon successful authentication.
+    \item Set session expiration based on "Remember Me" option (7 days if checked, 24 hours otherwise).
+    \item Log the login activity with timestamp and device information.
+    \item Increment failed login attempts counter if authentication fails.
+    \item Lock account temporarily after 5 consecutive failed login attempts.
+    \item Redirect user to dashboard upon successful login.
+\end{enumerate}
+
+\textbf{Validity checks:}
+\begin{itemize}
+    \item Email exists in the database.
+    \item Account is active and not suspended.
+    \item Account is not temporarily locked due to failed attempts.
+    \item Password matches stored encrypted password.
+\end{itemize}
+
+\textbf{Error handling:}
+\begin{itemize}
+    \item \textbf{Invalid Credentials:} Display "Incorrect email or password. Please try again."
+    \item \textbf{Account Locked:} Display "Account temporarily locked due to multiple failed attempts. Please try again in 30 minutes or reset your password."
+    \item \textbf{Unverified Email:} Display "Please verify your email address before logging in. Check your inbox for the verification link."
+\end{itemize}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Authentication Token:} JWT token stored in client storage for subsequent API calls.
+    \item \textbf{User Session:} Active session created with expiration time.
+    \item \textbf{Dashboard Access:} Redirect to the user dashboard showing personalized content.
+    \item \textbf{Login Log:} Entry in system logs recording successful/failed login attempt.
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-2.1:} The system shall authenticate users using email and password credentials.
+
+\textbf{FR-2.2:} The system shall generate and provide a secure JWT token upon successful authentication for subsequent API requests.
+
+\textbf{FR-2.3:} The system shall lock user accounts temporarily after 5 consecutive failed login attempts within 30 minutes.
+
+\textbf{FR-2.4:} The system shall maintain login session for 24 hours by default or 7 days if "Remember Me" is selected.
+
+\subsubsection{FR-3: AI-Based Workout Plan Generation}
+
+\paragraph{Introduction}
+This function uses artificial intelligence and machine learning to generate personalized workout plans. The AI model considers user profile data, fitness goals, health conditions, and current fitness level to create safe and effective exercise routines.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{User Profile Data:} Age, gender, weight, height, BMI (retrieved from database)
+    \item \textbf{Health Conditions:} List of medical conditions and physical limitations
+    \item \textbf{Fitness Goal:} Weight loss, muscle gain, endurance, or general fitness
+    \item \textbf{Fitness Level:} Beginner, intermediate, or advanced
+    \item \textbf{Available Days:} Number of workout days per week (1-7)
+    \item \textbf{Session Duration:} Preferred workout duration (15, 30, 45, or 60 minutes)
+    \item \textbf{Equipment Access:} Home workout (no equipment) or gym access
+    \item \textbf{Target Areas:} Optional body parts to focus on (arms, legs, core, full body)
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Retrieve complete user profile from database.
+    \item Prepare input features for AI model (normalize age, weight, height, encode categorical variables).
+    \item Load trained machine learning model from model repository.
+    \item Feed user characteristics into the AI model.
+    \item Generate exercise recommendations based on model predictions.
+    \item Filter exercises based on health conditions (exclude high-impact exercises for joint problems, avoid heavy lifting for heart conditions).
+    \item Adjust exercise intensity based on fitness level.
+    \item Create a weekly schedule distributing exercises across specified workout days.
+    \item Calculate estimated calorie burn for each workout session.
+    \item Assign rest days to prevent overtraining.
+    \item Include warm-up and cool-down exercises.
+    \item Store generated workout plan in database with timestamp.
+    \item Link the workout plan to the user profile for retrieval.
+\end{enumerate}
+
+Validity checks:
+\begin{itemize}
+    \item User profile exists and is complete.
+    \item All required fields for plan generation are available.
+    \item Health conditions are properly coded for model input.
+    \item Generated exercises are appropriate for the user's fitness level.
+    \item Workout duration matches user preference.
+\end{itemize}
+
+Error handling:
+\begin{itemize}
+    \item \textbf{Incomplete Profile:} Display "Please complete your profile before generating a workout plan."
+    \item \textbf{Model Loading Error:} Display "Unable to generate plan. Please try again later." and log error for admin review
+    \item \textbf{Invalid Input Data:} Display "Some profile information is invalid. Please update your profile."
+\end{itemize}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Workout Plan Document:} Structured document containing:
+    \begin{itemize}
+        \item Weekly schedule (7 days)
+        \item Daily exercise list with sets, reps, and duration
+        \item Exercise difficulty level
+        \item Estimated time for each workout
+        \item Total weekly calorie burn estimate
+        \item Rest days
+    \end{itemize}
+    \item \textbf{Plan Summary:} Overview displayed on dashboard showing plan highlights
+    \item \textbf{PDF Export:} Option to download plan as PDF for offline reference
+    \item \textbf{Database Record:} Workout plan saved with user ID, creation date, and plan version
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-3.1:} The system shall use a trained AI/ML model to generate personalized workout plans based on user age, gender, weight, height, fitness goals, and health conditions.
+
+\textbf{FR-3.2:} The system shall exclude exercises that are not suitable for users' specific health conditions.
+
+\textbf{FR-3.3:} The system shall create weekly workout schedules with appropriate rest days based on the user's selected workout frequency.
+
+\textbf{FR-3.4:} The system shall calculate and display the estimated calorie burn for each workout session.
+
+\textbf{FR-3.5:} The system shall allow users to regenerate workout plans if they are unsatisfied with initial recommendations.
+
+\subsubsection{FR-4: AI-Based Diet Plan Generation}
+
+\paragraph{Introduction}
+This function generates personalized diet plans using AI algorithms trained on nutritional data and dietary guidelines. The diet plan considers the user's metabolic rate, fitness goals, health conditions, dietary restrictions, and cultural preferences.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{User Profile:} Age, gender, weight, height, activity level
+    \item \textbf{Fitness Goal:} Weight loss, muscle gain, or maintenance
+    \item \textbf{Dietary Preferences:} Vegetarian, vegan, non-vegetarian, pescatarian
+    \item \textbf{Food Allergies:} List of allergies (nuts, dairy, gluten, shellfish, etc.)
+    \item \textbf{Cultural Preferences:} Pakistani/South Asian, Western, etc.
+    \item \textbf{Meal Frequency:} Number of meals per day (3-6 meals)
+    \item \textbf{Budget Level:} Low, medium, or high budget for meals
+    \item \textbf{Cooking Capability:} Complex recipes, simple meals, or ready-to-eat preference
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Calculate Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation:
+    \begin{itemize}
+        \item Men: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) + 5
+        \item Women: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) - 161
+    \end{itemize}
+    \item Calculate Total Daily Energy Expenditure (TDEE) = BMR × Activity Factor
+    \item Adjust calorie target based on goal:
+    \begin{itemize}
+        \item Weight loss: TDEE - 500 calories (for 0.5 kg/week loss)
+        \item Muscle gain: TDEE + 300 calories
+        \item Maintenance: TDEE
+    \end{itemize}
+    \item Calculate macronutrient distribution (protein, carbs, fats) based on goal.
+    \item Load trained diet plan generation model.
+    \item Input user constraints and preferences to model.
+    \item Generate meal suggestions for breakfast, lunch, dinner, and snacks.
+    \item Ensure meals meet calorie and macro targets.
+    \item Filter out allergenic ingredients.
+    \item Adapt recipes to cultural preferences.
+    \item Include portion sizes and preparation instructions.
+    \item Create weekly meal plan with variations.
+    \item Store diet plan in database linked to user profile.
+\end{enumerate}
+
+\textbf{Validity checks:}
+\begin{itemize}
+    \item Calorie target is within healthy range (minimum 1200 for women, 1500 for men).
+    \item Macronutrient ratios are balanced and safe.
+    \item All suggested meals exclude specified allergic ingredients.
+    \item Meals align with dietary preferences.
+\end{itemize}
+
+\textbf{Error handling:}
+\begin{itemize}
+    \item \textbf{Insufficient Data:} Display "Please complete dietary preferences in your profile."
+    \item \textbf{Extreme Calorie Deficit:} Display warning "Target calorie level is very low. Consult a nutritionist for safe weight loss."
+    \item \textbf{Model Error:} Display "Unable to generate diet plan. Please try again."
+\end{itemize}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Weekly Meal Plan:} 7-day meal plan with breakfast, lunch, dinner, and snacks.
+    \item \textbf{Nutritional Summary:} Daily calorie count, protein, carbs, fat breakdown.
+    \item \textbf{Shopping List:} Ingredient list for the week's meals.
+    \item \textbf{Recipe Cards:} Detailed recipes with cooking instructions.
+    \item \textbf{Portion Guides:} Visual portion size recommendations
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-4.1:} The system shall calculate user's BMR and TDEE to determine appropriate calorie targets for their fitness goals.
+
+\textbf{FR-4.2:} The system shall use AI model to generate personalized diet plans according to the user's dietary preferences, allergies, and cultural food choices.
+
+\textbf{FR-4.3:} The system shall create balanced meal plans with appropriate macronutrient distribution (protein, carbohydrates, fats).
+
+\textbf{FR-4.4:} The system shall generate weekly shopping lists based on the created diet plan.
+
+\textbf{FR-4.5:} The system shall provide recipe instructions and portion size guidance for all recommended meals.
+
+\subsubsection{FR-5: Workout Simulation and Demonstration}
+
+\paragraph{Introduction}
+This function provides visual demonstrations of exercises through animations or videos. It helps users understand proper form, and method of workout to prevent injuries and make workout effective for the user.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Exercise Selection:} User selects an exercise from their workout plan.
+    \item \textbf{Exercise ID:} Unique identifier for the exercise in database.
+    \item \textbf{User Preference:} Video or animated demonstration preference.
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Retrieve exercise details from database using exercise ID.
+    \item Load corresponding demonstration media (video/animation).
+    \item Display exercise name and muscle groups targeted.
+    \item Show step-by-step instructions.
+    \item Play visual demonstration with proper form.
+    \item Highlight common mistakes to avoid.
+    \item Display recommended sets, reps, and rest periods. %here..........
+    \item Provide alternative variations for different fitness levels.
+    \item Allow pause, replay, and slow-motion viewing.
+    \item Track which exercises has been viewed by the user.
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Video/Animation Player:} Media player showing exercise demonstration.
+    \item \textbf{Exercise Instructions:} Text description of exercise execution.
+    \item \textbf{Form Tips:} List of key points for proper form.
+    \item \textbf{Variations Display:} Easier or harder versions of the exercise.
+    \item \textbf{Tracking Record:} Log of viewed demonstrations.
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-5.1:} The system shall provide visual demonstrations (video or animation) for every exercise in the workout plan.
+
+\textbf{FR-5.2:} The system shall display step-by-step instructions along with visual demonstrations.
+
+\textbf{FR-5.3:} The system shall show common mistakes and proper form tips for each exercise.
+
+\textbf{FR-5.4:} The system shall allow users to pause, replay, and view demonstrations in slow motion.
+
+\subsubsection{FR-6: Daily Progress Tracking}
+
+\paragraph{Introduction}
+This function enables users to log their daily workout completion, weight measurements, and other fitness metrics. Consistent tracking helps users monitor improvements and keeps them motivated.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Workout Completion:} Checkbox for each completed exercise.
+    \item \textbf{Weight Entry:} Daily weight measurement (kg or lbs).
+    \item \textbf{Body Measurements:} Chest, waist, hips, arms, thighs (cm or inches).
+    \item \textbf{Energy Level:} Rating scale 1-5.
+    \item \textbf{Notes:} Optional text field for observations.
+    \item \textbf{Date:} Date of entry (auto-populated with current date).
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Validate date to ensure it's not in the future.
+    \item Check if entry already exists for the date.
+    \item Store workout completion status for each exercise.
+    \item Record weight and body measurements.
+    \item Calculate changes from previous entries.
+    \item Update running totals (total workouts completed, current streak).
+    \item Check if user met weekly workout goal.
+    \item Store data in user's progress collection.
+    \item Trigger achievement notifications if milestones reached.
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Confirmation Message:} "Progress logged successfully for [date]".
+    \item \textbf{Progress Summary:} Display of logged data.
+    \item \textbf{Trend Indicators:} Up/down arrows showing changes from previous entry.
+    \item \textbf{Streak Counter:} Number of consecutive days with logged workouts.
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-6.1:} The system shall allow users to mark completed exercises on a daily basis.
+
+\textbf{FR-6.2:} The system shall enable users to log weight and body measurements daily.
+
+\textbf{FR-6.3:} The system shall calculate and display changes from previous entries.
+
+\textbf{FR-6.4:} The system shall maintain a workout streak counter showing consecutive days of completed workouts.
+
+\subsubsection{FR-7: Weekly and Monthly Progress Reports}
+
+\paragraph{Introduction}
+This function generates progress reports summarizing user progress over weekly and monthly periods. Reports provide the details of workout consistency, weight changes, and goal achievement.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Report Type:} Weekly or monthly
+    \item \textbf{Date Range:} Start and end dates for the report
+    \item \textbf{User ID:} Authenticated user requesting report
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Check database for all progress entries within date range
+    \item Calculate total workouts completed
+    \item Calculate average daily workout completion rate
+    \item Analyze weight change (start weight - end weight)
+    \item Calculate average weekly weight loss/gain
+    \item Identify most and least completed exercises
+    \item Determine consistency score based on scheduled vs. completed workouts
+    \item Generate charts showing weight trends
+    \item Create graphs for body measurement changes
+    \item Compare current period with previous period
+    \item Generate insights and recommendations
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Report Dashboard:} Visual summary with charts and graphs
+    \item \textbf{Statistics:} Total workouts, completion rate, weight change
+    \item \textbf{Trend Charts:} Line graphs showing progress over time
+    \item \textbf{Insights:} AI-generated observations and recommendations
+    \item \textbf{PDF Export:} Downloadable progress report
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-7.1:} The system shall generate weekly progress reports showing workout completion rate and weight changes.
+
+\textbf{FR-7.2:} The system shall generate monthly progress reports with detailed analytics and trend visualization.
+
+\textbf{FR-7.3:} The system shall compare current period performance with previous periods.
+
+\textbf{FR-7.4:} The system shall allow users to export progress reports as PDF files.
+
+\subsubsection{FR-8: Adaptive Plan Recommendations}
+
+\paragraph{Introduction}
+This function analyzes user progress and automatically suggests plan modifications.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Progress Data:} Historical workout completion and weight changes
+    \item \textbf{Current Plan:} Active workout and diet plan details
+    \item \textbf{Time Period:} Duration since plan started
+    \item \textbf{User Feedback:} Optional difficulty ratings
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Analyze progress data for the past 4 weeks
+    \item Calculate rate of progress toward goal
+    \item Identify if user is:
+    \begin{itemize}
+        \item On track (expected progress)
+        \item Ahead of schedule (exceeding expectations)
+        \item Behind schedule (slower than expected progress)
+        \item Plateauing (no progress for 2+ weeks) %here.......
+    \end{itemize}
+    \item For plateaus: recommend increasing intensity or changing exercises
+    \item For ahead-of-schedule: suggest more challenging variations
+    \item For behind-schedule: check consistency, suggest easier variations or fewer days
+    \item Generate recommendation with reasoning
+    \item Present options to user for plan modification
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Recommendation Card:} Summary of suggested changes
+    \item \textbf{Reasoning:} Explanation based on progress analysis
+    \item \textbf{Preview:} Show what new plan would look like
+    \item \textbf{Action Buttons:} Accept, modify, or dismiss recommendation
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-8.1:} The system shall analyze user progress every 4 weeks and identify plateaus or exceptional progress.
+
+\textbf{FR-8.2:} The system shall automatically recommend plan modifications when progress stalls for more than 2 weeks.
+
+\textbf{FR-8.3:} The system shall suggest increased difficulty for users consistently exceeding workout targets.
+
+\textbf{FR-8.4:} The system shall allow users to accept, modify, or dismiss adaptive recommendations.
+
+\subsubsection{FR-9: User Profile Management}
+
+\paragraph{Introduction}
+This function allows users to view and update their profile information, including personal details, health conditions, fitness goals, and preferences.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Updated Fields:} Any profile field user wishes to change
+    \item \textbf{Verification:} Password confirmation for sensitive changes
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Display current profile information
+    \item Allow editing of modifiable fields
+    \item Validate updated information
+    \item Check if changes require plan regeneration
+    \item Update database with new information
+    \item Log profile changes with timestamp
+    \item Notify user if workout/diet plans need updating
+    \item Trigger plan regeneration if significant changes made
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Update Confirmation:} "Profile updated successfully"
+    \item \textbf{Impact Notice:} Notification if plans need regeneration
+    \item \textbf{Updated Profile Display:} Show new information
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-9.1:} The system shall allow users to view and edit their profile information at any time.
+
+\textbf{FR-9.2:} The system shall notify users when profile changes require regenerating workout or diet plans.
+
+\textbf{FR-9.3:} The system shall validate updated information before saving changes.
+
+\textbf{FR-9.4:} The system shall maintain a log of profile changes for audit purposes.
+
+\subsubsection{FR-10: System Administration and User Management}
+
+\paragraph{Introduction}
+This function provides system administrators with tools to manage users, monitor system health, update content, and maintain the AI models.
+
+\paragraph{Inputs}
+\begin{itemize}
+    \item \textbf{Admin Credentials:} Secure administrator login
+    \item \textbf{Management Actions:} User queries, content updates, system commands
+\end{itemize}
+
+\paragraph{Processing}
+The system shall:
+\begin{enumerate}
+    \item Authenticate administrator credentials
+    \item Provide dashboard with system statistics
+    \item Allow user account management (view, suspend, delete)
+    \item Enable content management (exercises, recipes)
+    \item Display system health metrics
+    \item Allow AI model retraining with new data
+    \item Generate system reports
+    \item Manage user support requests
+\end{enumerate}
+
+\paragraph{Outputs}
+\begin{itemize}
+    \item \textbf{Admin Dashboard:} Overview of system status
+    \item \textbf{User List:} Searchable list of registered users
+    \item \textbf{System Logs:} Activity logs and error reports
+    \item \textbf{Management Tools:} Interfaces for content and user management
+\end{itemize}
+
+\paragraph{Requirement Statement}
+\textbf{FR-10.1:} The system shall provide a secure administrator interface for system management.
+
+\textbf{FR-10.2:} The system shall allow administrators to view, search, and manage user accounts.
+
+\textbf{FR-10.3:} The system shall enable administrators to update exercise and recipe databases.
+
+\textbf{FR-10.4:} The system shall provide system health monitoring and error logs for administrators.
+
+\textbf{FR-10.5:} The system shall allow administrators to retrain AI models with updated data.
+
+\subsection{External Interface Requirements}
+
+\subsubsection{User Interfaces}
+The system shall provide the following user interfaces:
+
+\begin{enumerate}
+    
+    \item \textbf{UI-2: Web Application Interface}
+    \begin{itemize}
+        \item Screen format: Responsive web design for desktop and tablet browsers
+        \item Layout: Side navigation panel with content area
+        \item Navigation: Breadcrumb navigation and dropdown menus
+        \item Compatibility: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+    \end{itemize}
+    
+    \item \textbf{UI-3: Administrator Console}
+    \begin{itemize}
+        \item Screen format: Desktop web interface
+        \item Layout: Dashboard with widgets showing key metrics
+        \item Features: Data tables, search filters, action buttons
+        \item Access: Restricted to authenticated administrators only
+    \end{itemize}
+    
+    \item \textbf{UI-4: Workout Simulation Player}
+    \begin{itemize}
+        \item Screen format: Full-screen or embedded player
+        \item Controls: Play, pause, replay, slow motion, next/previous
+        \item Display: Exercise timer, rep counter, rest period countdown
+        \item Overlay: Text instructions and form tips
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Hardware Interfaces}
+The system has no specific hardware interfaces, as it is a web-based platform that is accessible through web browsers.
+\subsubsection{Software Interfaces}
+\begin{enumerate}
+    \item \textbf{SI-1:} The system shall interface with MongoDB Database
+    \begin{itemize}
+        \item Name: MongoDB
+        \item Version: 5.0 or higher
+        \item Purpose: Store user profiles, workout plans, diet plans, and progress data
+        \item Data format: JSON/BSON documents
+        \item Connection: MongoDB connection string with authentication
+    \end{itemize}
+    
+    \item \textbf{SI-2:} The system shall interface with Node.js Backend
+    \begin{itemize}
+        \item Name: Node.js with Express.js
+        \item Version: Node.js 16+, Express.js 4.x
+        \item Purpose: Handle API requests, business logic, authentication
+        \item Communication: RESTful API with JSON payloads
+    \end{itemize}
+    
+    \item \textbf{SI-3:} The system shall interface with TensorFlow/PyTorch
+    \begin{itemize}
+        \item Name: TensorFlow or PyTorch
+        \item Version: TensorFlow 2.x or PyTorch 1.x
+        \item Purpose: Load and execute trained AI models for plan generation
+        \item Integration: Python microservice or TensorFlow.js
+    \end{itemize}
+    
+    \item \textbf{SI-4:} The system shall interface with Email Service
+    \begin{itemize}
+        \item Name: SendGrid or similar SMTP service
+        \item Purpose: Send verification emails, notifications, password resets
+        \item Protocol: SMTP with TLS encryption
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Communications Interfaces}
+\begin{enumerate}
+    \item \textbf{CI-1:} The system shall use HTTPS protocol (TLS 1.2 or higher) for all client-server communications to ensure data security.
+    
+    \item \textbf{CI-2:} The system shall implement RESTful API architecture with JSON data format for all API endpoints.
+    
+    \item \textbf{CI-3:} The system shall support WebSocket connections for potential real-time features such as live workout sessions.
+    
+    \item \textbf{CI-4:} The system shall use JWT (JSON Web Tokens) for stateless authentication across API requests.
+\end{enumerate}
+
+\subsection{Non-Functional Requirements}
+
+\subsubsection{Reaction Speed and Processing Capacity}
+
+\textbf{NFR-1: Reaction Speed and Processing Capacity}
+
+\textbf{NFR-1.1:} The system shall answer user login requests within 2 seconds under normal load conditions (95\% of the time).
+
+\textbf{NFR-1.2:} The system shall create AI-based workout plans within 5 seconds of user request submission.
+
+\textbf{NFR-1.3:} The system shall create AI-based diet plans within 7 seconds of user request submission.
+
+\textbf{NFR-1.4:} The system shall load workout simulation videos within 3 seconds on standard broadband connections (5 Mbps+).
+
+\textbf{NFR-1.5:} The system shall support at least 1000 simultaneous users without slowing down.
+
+\textbf{NFR-1.6:} The system shall handle progress tracking data entry and show confirmation within 1 second.
+
+Static Requirements
+
+\begin{itemize}
+\item Number of simultaneous users: Minimum 1000 simultaneous users
+\item Database capacity: Support for 100,000+ user profiles
+\item Storage: 500 GB minimum for database and media files
+\item Workout exercise database: Minimum 200 exercises
+\item Diet recipe database: Minimum 500 recipes
+\end{itemize}
+
+Dynamic Requirements
+
+\begin{itemize}
+\item API request processing rate: 100 requests per second minimum
+\item Data synchronization: Real-time sync within 2 seconds
+\item High-Traffic Handling: Handle 3x normal traffic during peak hours (6-9 AM, 6-9 PM)
+\item Data Search Speed: 95\% of queries complete within 100ms
+\end{itemize}
+
+\subsubsection{Security Requirements}
+
+\textbf{NFR-2: System Security and Data Protection}
+
+\textbf{NFR-2.1:} The system shall use user permission levels to stop unauthorized access with three roles: User, Admin, and Fitness Trainer.
+
+\textbf{NFR-2.2:} The system shall scramble all sensitive data including passwords using strong password hashing with minimum 10 salt rounds, and health information using advanced data protection both while sending (HTTPS) and at rest (database scrambling).
+
+\textbf{NFR-2.3:} The system shall keep an activity record of all security-related events including login attempts (successful and failed), profile changes, plan creations, and administrative actions with timestamp and IP address.
+
+\textbf{NFR-2.4:} The system shall automatically lock user accounts for 30 minutes after 5 repeated wrong logins within a 30-minute window.
+
+\textbf{NFR-2.5:} The system shall enforce password rules requiring minimum length of 8 characters including at least one uppercase letter, one lowercase letter, one number, and one special character.
+
+\textbf{NFR-2.6:} The system shall use secure access tokens that expire (24 hours for regular sessions, 7 days for ”remember me”) and token refresh methods.
+
+\textbf{NFR-2.7:} The system shall follow data privacy rules by allowing users to export their data and request account deletion.
+
+\textbf{NFR-2.8:} The system shall clean all user inputs to prevent database attacks, web script attacks, and other injection attacks.
+
+\subsubsection{Reliability Requirements}
+
+\textbf{NFR-3: System Reliability and Availability}
+
+\textbf{NFR-3.1:} The system shall maintain an availability time of 99.5\% during working hours (calculated monthly, excluding planned maintenance).
+
+\textbf{NFR-3.2:} The system shall have an average time without breakdowns of at least 720 hours (30 days).
+
+\textbf{NFR-3.3:} The system shall automatically perform partial data copies every 6 hours and complete data copies daily at 2:00 AM UTC.
+
+\textbf{NFR-3.4:} The system shall be able to recover from failures with a downtime limit of 30 minutes and data loss limit of 6 hours.
+
+\textbf{NFR-3.5:} The system shall use data duplication with at least one duplicate set for backup and automatic backup switch.
+
+\textbf{NFR-3.6:} The system shall handle API failures smoothly and display user-friendly error messages instead of system errors.
+
+\subsubsection{Maintainability Requirements}
+
+\textbf{NFR-4: System Maintainability and Code Quality}
+
+\textbf{NFR-4.1:} The system code shall maintain a minimum of 70\% code explanation percentage including inline comments, function explanations, and README files.
+
+\textbf{NFR-4.2:} The system structure shall follow building block structure principles with clear divided responsibilities (frontend, backend, database, AI models) to make independent module updates easier.
+
+\textbf{NFR-4.3:} The system shall provide detailed error tracking for finding and fixing problems with log levels (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+
+\textbf{NFR-4.4:} The system shall allow setup changes (API endpoints, database connections, feature flags) through adjustable settings without needing code redeployment.
+
+\textbf{NFR-4.5:} The system shall be designed to allow updates and fixes to be applied with minimal downtime (less than 5 minutes for minor updates).
+
+\textbf{NFR-4.6:} The system codebase shall follow consistent code rules and style guides (ESLint for JavaScript, PEP 8 for Python).
+
+\textbf{NFR-4.7:} The system shall include self-checking code covering at least 60\% of backend code and critical frontend components.
+
+\subsubsection{Usability Requirements}
+
+\textbf{NFR-5: System Usability and User Experience}
+
+\textbf{NFR-5.1:} The system shall enable new users to complete registration and generate their first workout plan within 10 minutes without external help.
+
+\textbf{NFR-5.2:} The system shall provide relevant popup tips and a comprehensive FAQ section accessible from all screens.
+
+\textbf{NFR-5.3:} The system shall display clear and helpful fix suggestions that guide users toward resolution (e.g., ”Password must contain at least one uppercase letter” instead of ”Invalid password”).
+
+\textbf{NFR-5.4:} The system shall be accessible to users with disabilities, implementing accessibility standards including screen reader compatibility, mouse-free controls, and sufficient readable text colors (minimum 4.5:1).
+
+\textbf{NFR-5.5:} The system interface shall be easy to understand, requiring no more than 3 clicks/taps to reach any major function from the home screen.
+
+\textbf{NFR-5.6:} The system shall support multiple languages with initial support for English and Urdu, with the ability to add more languages in future updates.
+
+\textbf{NFR-5.7:} The web interface shall be responsive and adapt to different screen sizes (e.g., desktop, tablet) without loss of functionality.
+
+\textbf{NFR-5.8:} The system shall provide welcome guides for first-time users explaining key features (plan generation, progress tracking, workout simulations).
+
+\subsection{Design Constraints}
+
+\subsubsection{Standards Compliance}
+\begin{enumerate}
+    \item The system shall comply with IEEE 830-1984 standard for software requirements specifications
+    \item The system shall follow REST API design principles and best practices
+    \item The system shall adhere to OWASP Top 10 security standards for web applications
+    \item The system shall comply with health information privacy guidelines
+\end{enumerate}
+
+\subsubsection{Hardware Limitations}
+\begin{enumerate} 
+    None.
+\end{enumerate}
+
+\subsubsection{Technology Stack Constraints}
+\begin{enumerate}
+    \item Web interface must be developed using Python-based framework
+    \item Backend must use Node.js with Express.js framework
+    \item Database must be MongoDB (NoSQL)
+    \item Version control must use Git with GitHub repository
+    \item Deployment platform must be Vercel or similar cloud platform
+\end{enumerate}
+
+\subsection{System Attributes}
+
+\subsubsection{Availability}
+The system shall provide 99.5\% availability during operational hours, calculated on a monthly basis excluding scheduled maintenance windows (announced 48 hours in advance).
+
+\subsubsection{Portability}
+The system shall be designed to operate on:
+\begin{itemize}
+    \item Web browsers: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+    \item Operating systems: Windows 10+, macOS 10.15+, Linux (Ubuntu 18.04+)
+\end{itemize}
+
+\subsubsection{Scalability}
+The system shall be designed to scale horizontally to accommodate growth in users (up to 100,000 users) and data volume through:
+\begin{itemize}
+    \item Microservices architecture allowing independent scaling
+    \item Database sharding capabilities for user data distribution
+    \item Content Delivery Network (CDN) for media file delivery
+    \item Load balancing across multiple server instances
+\end{itemize}
+
+%\subsubsection{Compatibility}
+%The system shall maintain backward compatibility with previous versions of mobile applications for at least 6 months after new version release.
+
+\subsection{Other Requirements}
+
+\subsubsection{Database Requirements}
+\begin{enumerate}
+    \item The system shall use MongoDB 5.0+ for data storage with following collections:
+    \begin{itemize}
+        \item Users: User profiles and authentication data
+        \item WorkoutPlans: Generated workout plans
+        \item DietPlans: Generated diet plans
+        \item Progress: Daily progress tracking entries
+        \item Exercises: Exercise library with demonstrations
+        \item Recipes: Recipe database for diet plans
+        \item AuditLogs: System activity logs
+    \end{itemize}
+    \item Data retention period: User data retained indefinitely until user requests deletion; audit logs retained for 2 years
+    \item Backup frequency: Incremental backups every 6 hours, full backups daily
+    \item Database access control: Role-based access with encrypted connections
+    \item Data encryption: AES-256 encryption for sensitive fields
+\end{enumerate}
+
+\subsubsection{Operations}
+\begin{enumerate}
+    \item \textbf{Normal operations:}
+    \begin{itemize}
+        \item 24/7 system availability for user access
+        \item Real-time plan generation and progress tracking
+        \item Continuous monitoring of system health metrics
+    \end{itemize}
+    
+    \item \textbf{Backup procedures:}
+    \begin{itemize}
+        \item Automated daily full backups at 2:00 AM UTC
+        \item Incremental backups every 6 hours
+        \item Backup retention: Daily backups for 30 days, monthly backups for 1 year
+        \item Backup storage: Secure cloud storage with encryption
+    \end{itemize}
+    
+    \item \textbf{Recovery procedures:}
+    \begin{itemize}
+        \item Automated failover to replica database within 5 minutes
+        \item Manual recovery from backups within 30 minutes
+        \item Data integrity verification after recovery
+        \item User notification of any data recovery operations
+    \end{itemize}
+    
+    \item \textbf{Maintenance windows:}
+    \begin{itemize}
+        \item Scheduled maintenance: Last Sunday of the month, 2:00-4:00 AM UTC
+        \item Emergency maintenance: As needed with minimal disruption
+        \item Advance notification: 48 hours for scheduled maintenance
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{AI Model Requirements}
+\begin{enumerate}
+    \item The AI models for workout and diet plan generation shall be trained on diverse datasets representing various demographics, fitness levels, and health conditions
+    \item Model accuracy requirements: Minimum 85\% user satisfaction with generated plans (measured through feedback)
+    \item Model retraining: Quarterly updates with new data from user feedback and progress tracking
+    \item Model versioning: Maintain version control for AI models with the ability to rollback if needed
+    \item Model explainability: Provide reasoning for plan recommendations to increase user trust
+\end{enumerate}
+
+\subsubsection{Legal and Regulatory Requirements}
+\begin{enumerate}
+    \item The system shall display a medical disclaimer stating that it is not a substitute for professional medical advice, and users should consult healthcare providers before starting any fitness program
+    \item The system shall comply with data protection regulations, including user consent for data collection and processing
+    \item The system shall provide terms of service and privacy policy accessible during registration
+    \item The system shall allow users to exercise their data rights: access, portability, and deletion
+    \item The system shall include age verification to ensure users are 18 years or older
+\end{enumerate}
+
+\newpage
+
+% APPENDICES
+\appendix
+
+\section{Context Diagram}
+\label{appendix:context}
+
+The Context Diagram below illustrates the Virtual Fitness Trainer system as a single entity interacting with external entities. It defines the system boundary and shows all external entities that interact with the Virtual Fitness Trainer system as defined in Sections 2 and 3.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Context Diagram.jpeg}
+\caption{Context Diagram for Virtual Fitness Trainer}
+\label{fig:context}
+\end{figure}
+
+\section{Use Case Diagram}
+\label{appendix:use_case}
+The Use Case Diagram below models the interactions between actors and the Virtual Fitness Trainer system. It accurately reflects all key functional requirements and actors defined in the SRS.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Use Case Diagram.png}
+\caption{Use Case Diagram for Virtual Fitness Trainer}
+\label{fig:use_case}
+\end{figure}
+
+\end{document}
