@@ -1,0 +1,357 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{float}
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Virtual Fitness Trainer - System Design Report}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \includegraphics[width=0.3\textwidth]{logo-namal.png} % Placeholder for logo
+    \vspace{1cm}
+    
+    {\Huge \textbf{System Design Report}} \\
+    \vspace{0.5cm}
+    {\Large for} \\
+    \vspace{0.5cm}
+    {\Huge \textbf{Virtual Fitness Trainer}} \\
+    \vspace{1cm}
+    
+    {\Large Version 1.0} \\
+    \vspace{1.5cm}
+    
+    {\large \textbf{Prepared by:}} \\
+    \vspace{0.3cm}
+    {\large Muhammad Wasif (NUM-BSCS-2024-59)} \\
+    {\large Muhammad Shahid (NUM-BSCS-2024-56)} \\
+    {\large Hifza Bibi (NUM-BSCS-2024-27)} \\
+    \vspace{1.5cm}
+    
+    {\large \textbf{Namal University, Mianwali}} \\
+    {\large Department of Computer Science} \\
+    \vspace{1cm}
+    
+    {\large \textbf{Date: January 18, 2026}} \\
+    \vspace{1.5cm}
+    
+    {\large \textbf{Prepared for:}} \\
+    {\large Mr. Mutahar Khadim} \\
+    {\large Research Associate at Center of AI and Big Data} \\
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+This document presents the comprehensive system design for the \textbf{Virtual Fitness Trainer} project, as per the requirements specified in the approved Software Requirements Specification (SRS) Version 2.0 dated December 28, 2025. The purpose of this milestone is to translate documented functional and non-functional requirements into a concrete system design using standard software modeling techniques.
+
+The \textbf{Virtual Fitness Trainer} is a web-based platform designed to provide personalized fitness and diet guidance through AI-powered plan generation, progress tracking, and instructional video demonstrations. This design report aligns with the objectives of Project Milestone 3, ensuring traceability between requirements and design artifacts, validating system behavior and structure, and facilitating stakeholder feedback through prototyping.
+
+\section{Design Assumptions and Constraints}
+
+\subsection{Assumptions}
+The following assumptions were made during the system design, based on the SRS:
+\begin{enumerate}
+    \item Users have access to a modern web browser and a stable internet connection.
+    \item AI/ML models for workout and diet plan generation are pre-trained and available via a service endpoint.
+    \item Users will provide accurate health and fitness information for effective personalization.
+    \item Workout demonstration videos are pre-recorded and stored in a media repository.
+    \item The system will be deployed on a cloud platform (Vercel) with MongoDB Atlas as the database service.
+    \item Users with serious medical conditions will consult healthcare professionals before following generated plans.
+\end{enumerate}
+
+\subsection{Constraints}
+Design constraints derived from the SRS include:
+\begin{enumerate}
+    \item \textbf{Technology Stack}: 
+    \begin{itemize}
+        \item Web interface: Python-based framework (e.g., Flask/Django)
+        \item Backend: Node.js with Express.js
+        \item Database: MongoDB 5.0+
+        \item AI Framework: TensorFlow/PyTorch
+    \end{itemize}
+    \item \textbf{Performance}: 
+    \begin{itemize}
+        \item Login response time ≤ 2 seconds
+        \item Workout plan generation ≤ 5 seconds
+        \item Support for ≥1000 concurrent users
+    \end{itemize}
+    \item \textbf{Security}: 
+    \begin{itemize}
+        \item Passwords hashed with bcrypt (min. 10 rounds)
+        \item HTTPS/TLS 1.2+ for all communications
+        \item JWT-based authentication with token expiration
+        \item Input sanitization against SQL/NoSQL and XSS attacks
+    \end{itemize}
+    \item \textbf{Compliance}: 
+    \begin{itemize}
+        \item Adherence to health data privacy regulations
+        \item OWASP Top 10 security standards
+        \item Accessibility standards (WCAG 2.1 Level AA)
+    \end{itemize}
+    \item \textbf{Availability}: 99.5\% uptime during operational hours, excluding scheduled maintenance.
+\end{enumerate}
+
+\section{Key Design Decisions}
+
+\subsection{Decomposition in Data Flow Diagrams}
+\begin{itemize}
+    \item The AI-based plan generation (FR-3, FR-4) is decomposed into sub-processes: \textit{User Data Retrieval}, \textit{Model Input Preparation}, \textit{AI Model Execution}, \textit{Result Filtering and Scheduling}, and \textit{Plan Storage} (see Level 2 DFD in Figure 3.5). This ensures modularity and aligns with the SRS processing steps.
+    \item User registration (FR-1) is broken down into \textit{Input Validation}, \textit{Email Uniqueness Check}, \textit{Password Hashing}, \textit{Age/BMI Calculation}, and \textit{Database Storage} (shown in DFD Level 1) to isolate concerns and improve maintainability.
+\end{itemize}
+
+\subsection{Class Relationships in Class Diagram}
+\begin{itemize}
+    \item \textbf{Association}: User \textit{has a} Profile, User \textit{generates} WorkoutPlan and DietPlan.
+    \item \textbf{Aggregation}: ProgressTracking \textit{contains} multiple ProgressEntry objects.
+    \item \textbf{Composition}: WorkoutPlan \textit{is composed of} Exercise objects; DietPlan \textit{is composed of} Meal objects.
+    \item \textbf{Inheritance}: User class extended to \textit{RegisteredUser} and \textit{Trainer} (for future role expansion).
+\end{itemize}
+
+\subsection{Distribution of Functionality Across Diagrams}
+\begin{itemize}
+    \item Separate sequence diagrams are created for each functional requirement (FR-1 to FR-9) to avoid overcrowding and improve clarity (Figures 3.6 to 3.10).
+    \item Activity diagrams are created for key workflows: \textit{User Login and Registration} (Figure 3.11) and \textit{Core System Activities} including Workout Plan Generation (Figure 3.12).
+    \item Two component diagrams illustrate the architecture: high-level system components (Figure 3.14) and detailed AI/Recommendation subsystem (Figure 3.15), reflecting a microservices-oriented approach.
+\end{itemize}
+
+\section{System Design Diagrams}
+
+\subsection{Use Case Diagram}
+The use case diagram identifies primary actors (User, Fitness Trainer, AI System) and major use cases derived from SRS functional requirements.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Use Case Diagram.png}
+    \caption{Use Case Diagram for Virtual Fitness Trainer}
+    \label{fig:use_case}
+\end{figure}
+
+\subsection{Data Flow Diagrams}
+
+\subsubsection{Level 0 (Context Diagram)}
+Shows the system as a single process interacting with external entities: User, AI Model Service, Email Service, and Database.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{DFD 0 level.png}
+    \caption{DFD Level 0 - Context Diagram}
+    \label{fig:dfd0}
+\end{figure}
+
+\subsubsection{Level 1 DFD}
+Decomposes the system into major processes: User Management (Process 1.x), Plan Generation (Process 2.x), Progress Tracking (Process 4.x), and Reporting.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{DFD Level 1.png}
+    \caption{DFD Level 1 - Major Processes}
+    \label{fig:dfd1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{DFD Level 1.1.png}
+    \caption{DFD Level 1 - Major Processes (Cont.)}
+    \label{fig:dfd1_1}
+\end{figure}
+
+\subsubsection{Level 2 DFD (for Plan Generation)}
+Further decomposes the AI-based plan generation process (Process 2.1 and 2.2) into sub-processes: User Data Retrieval, Model Input Preparation, AI Model Execution, Result Filtering and Scheduling, and Plan Storage.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{DFD Level 2.png}
+    \caption{DFD Level 2 - Plan Generation Process}
+    \label{fig:dfd2}
+\end{figure}
+
+\subsection{Sequence Diagrams}
+Sequence diagrams model interactions for key functionalities.
+
+\subsubsection{User Registration (FR-1)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{seq 1.png}
+    \caption{Sequence Diagram - User Registration}
+    \label{fig:seq_reg}
+\end{figure}
+
+\subsubsection{User Login (FR-2)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{seq 2.png}
+    \caption{Sequence Diagram - User Login}
+    \label{fig:seq_login}
+\end{figure}
+
+\subsubsection{Workout Plan Generation (FR-3) and Diet Plan Generation (FR-4)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{seq 3.png}
+    \caption{Sequence Diagram - AI-Based Workout and Diet Plan Generation}
+    \label{fig:seq_plan}
+\end{figure}
+
+\subsubsection{Daily Progress Tracking (FR-6) and Video Demonstration (FR-5)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{seq 4.png}
+    \caption{Sequence Diagram - Daily Progress Tracking and Video Demonstration}
+    \label{fig:seq_progress}
+\end{figure}
+
+\subsubsection{Progress Reports, Plan Recommendations and User Profile Management}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{seq 5.png}
+    \caption{Sequence Diagram - Reports, Recommendations, and Profile Management}
+    \label{fig:seq_reports}
+\end{figure}
+
+\subsection{Activity Diagrams}
+Activity diagrams represent important system workflows.
+
+\subsubsection{User Login and Registration}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{activity diagrame part 1.png}
+    \caption{Activity Diagram - User Login and Registration}
+    \label{fig:act_login}
+\end{figure}
+
+\subsubsection{Core System Activities}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{acttivity diagrame part2.png}
+    \caption{Activity Diagram - Workout Plan Generation}
+    \label{fig:act_workout}
+\end{figure}
+
+\subsection{Class Diagram}
+The class diagram reflects the system structure with classes, attributes, methods, and relationships.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{class.png}
+    \caption{Class Diagram for Virtual Fitness Trainer}
+    \label{fig:class_diag}
+\end{figure}
+
+\subsection{Component Diagram}
+Illustrates high-level system components and their dependencies.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Component diagram 1.png}
+    \caption{High Level System Architecture}
+    \label{fig:comp_diag1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Component diagram 2.png}
+    \caption{Detailed AI and Recommendation System}
+    \label{fig:comp_diag2}
+\end{figure}
+
+\section{Requirements–Design Traceability Table}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{|p{1.5cm}|p{3.5cm}|X|}
+\hline
+\textbf{Req. ID} & \textbf{Description} & \textbf{Mapped Design Elements} \\
+\hline
+FR-1 & User Registration and Profile Creation & 
+\textbullet Use Case: Register User \newline
+\textbullet DFD Process: 1.1 User Registration \newline
+\textbullet Sequence Diagram: seq 1.png \newline
+\textbullet Class: User, UserProfile \newline
+\textbullet Prototype: Registration Page \\
+\hline
+FR-2 & User Authentication and Login &
+\textbullet Use Case: Login, Forgot Password \newline
+\textbullet DFD Process: 1.2 Authenticate User \newline
+\textbullet Sequence Diagram: seq 2.png \newline
+\textbullet Class: AuthService, User \newline
+\textbullet Prototype: Login Page, Password Reset \\
+\hline
+FR-3 & AI-Based Workout Plan Generation &
+\textbullet Use Case: Generate Workout Plan \newline
+\textbullet DFD Process: 2.1 Generate Workout Plan \newline
+\textbullet Sequence Diagram: seq 3.png \newline
+\textbullet Activity Diagram: activity part2.png \newline
+\textbullet Class: WorkoutPlan, Exercise, AIService \newline
+\textbullet Prototype: Workout Plan Form, Results \\
+\hline
+FR-4 & AI-Based Diet Plan Generation &
+\textbullet Use Case: Generate Diet Plan \newline
+\textbullet DFD Process: 2.2 Generate Diet Plan \newline
+\textbullet Sequence Diagram: seq 3.png \newline
+\textbullet Class: DietPlan, Meal, AIService \newline
+\textbullet Prototype: Diet Preferences Form, Meal Plan \\
+\hline
+FR-5 & Workout Video Demonstration &
+\textbullet Use Case: View Exercise Demo \newline
+\textbullet DFD Process: 3.1 Show Video Demonstration \newline
+\textbullet Sequence Diagram: seq 4.png \newline
+\textbullet Class: Exercise, VideoService \newline
+\textbullet Prototype: Video Player Page \\
+\hline
+FR-6 & Daily Progress Tracking &
+\textbullet Use Case: Log Daily Progress \newline
+\textbullet DFD Process: 4.1 Track Progress \newline
+\textbullet Sequence Diagram: seq 4.png \newline
+\textbullet Class: ProgressTracking, ProgressEntry \newline
+\textbullet Prototype: Daily Log Page \\
+\hline
+FR-7 & Weekly/Monthly Progress Reports &
+\textbullet Use Case: Generate Report \newline
+\textbullet DFD Process: 4.2 Generate Reports \newline
+\textbullet Sequence Diagram: seq 5.png \newline
+\textbullet Class: ReportGenerator, ProgressTracking \newline
+\textbullet Prototype: Reports Dashboard \\
+\hline
+FR-8 & Adaptive Plan Recommendations &
+\textbullet Use Case: Receive Recommendations \newline
+\textbullet DFD Process: 2.3 Adapt Plan \newline
+\textbullet Sequence Diagram: seq 5.png \newline
+\textbullet Class: RecommendationEngine, WorkoutPlan, DietPlan \newline
+\textbullet Prototype: Recommendations Panel \\
+\hline
+FR-9 & User Profile Management &
+\textbullet Use Case: Update Profile \newline
+\textbullet DFD Process: 1.3 Manage Profile \newline
+\textbullet Sequence Diagram: seq 5.png \newline
+\textbullet Class: UserProfile \newline
+\textbullet Prototype: Profile Settings Page \\
+\hline
+\end{tabularx}
+\caption{Traceability Matrix: Functional Requirements to Design Artifacts}
+\label{tab:trace}
+\end{table}
+\caption{Traceability Matrix: Functional Requirements to Design Artifacts}
+\label{tab:trace}
+\end{table}
+
+\subsection{Repository and Prototype Links}
+\begin{itemize}
+    \item \textbf{GitHub Repository}: \url{https://github.com/wasif-cmd/Virtual-Fitness-Trainer}
+    \item \textbf{Figma Prototype}: \url{https://www.figma.com/design/fBCSFfLgw5XEsQDaN9Opt1/Virtual-Fitness-Trainer?node-id=0-1&t=rS5Bl7JZMQHveF1R-1}
+\end{itemize}
+
+\end{document}
