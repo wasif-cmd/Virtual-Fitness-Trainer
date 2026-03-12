@@ -1,0 +1,571 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────────────
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{array}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ── Page Style ────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small CSC-271 -- Database Systems}
+\fancyhead[R]{\small Virtual Fitness Trainer}
+\fancyfoot[C]{\thepage}
+
+% ── Section Formatting ────────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% ── Hyperref ──────────────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black
+}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── Title Page ────────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+
+  % University Logo -- replace namal_logo.png with actual logo file
+  \includegraphics[width=3cm]{logo-namal.png}\\[0.5cm]
+
+  {\LARGE \textbf{Namal University, Mianwali}}\\[0.2cm]
+  {\large Department of Computer Science}\\[0.8cm]
+
+  \rule{\linewidth}{0.4pt}\\[0.3cm]
+  {\large \textbf{CSC-271 -- Database Systems}}\\[0.1cm]
+  {\large \textbf{Complex Computing Problem -- Milestone 1}}\\[0.3cm]
+  \rule{\linewidth}{0.4pt}\\[1.0cm]
+
+  {\LARGE \textbf{Database System Proposal for}}\\[0.3cm]
+  {\Huge \textbf{Virtual Fitness Trainer}}\\[1.5cm]
+
+  {\large \textbf{Submitted by:}}\\[0.5cm]
+
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Name} & \textbf{Roll Number} & \textbf{Email} \\
+    \midrule
+    Muhammad Wasif  & NUM-BSCS-2024-59 & bscs24f59@namal.edu.pk \\
+    Muhammad Shahid & NUM-BSCS-2024-56 & bscs24f56@namal.edu.pk \\
+    Hifza Bibi      & NUM-BSCS-2024-27 & bscs24f27@namal.edu.pk \\
+    \bottomrule
+  \end{tabular}\\[1.5cm]
+
+  {\large \textbf{Submitted to:} Ms.Asiya Batool}\\[0.4cm]
+  {\large \textbf{Submission Date:} 12 March 2026}\\[0.3cm]
+  
+  \rule{\linewidth}{0.4pt}\\[0.3cm]
+  
+
+\end{titlepage}
+
+% ── Table of Contents ─────────────────────────────────────────────────────────
+\newpage
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Introduction}
+
+The Virtual Fitness Trainer is a software system that helps people improve their health and
+fitness. It gives each user a personalized workout plan and diet plan based on their own
+health condition, body measurements, and fitness goals.
+
+Today, many people want to get fit but do not have access to a personal trainer or proper
+fitness guidance. Some fitness apps are available, like BodBot and Home Workout-No
+Equipment, but these apps give the same plan to everyone. They do not consider whether a
+person has a health problem like diabetes, joint pain, or heart disease~\cite{bodbot,homeworkout}.
+
+This project builds a fitness system that uses Artificial Intelligence (AI) to create plans
+that are different for each user. At the center of this system is a database that stores all
+user information, generated plans, exercise details, daily progress, and reports.
+
+From the database side, the system needs to save and manage a lot of data -- user profiles,
+workout and diet plans, exercise lists, daily progress records, and report summaries. This
+proposal explains how the database will be designed and what technologies will be used to
+build it~\cite{srs}.
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Problem Statement}
+
+Many people want to stay fit, but do not have a trainer who can guide them. Most fitness
+apps available today give the same workout to everyone, without thinking about the person's
+health condition or personal goal. For example, a person with knee pain cannot do the same
+exercises as a healthy person, and someone who wants to lose weight needs a different diet
+than someone who wants to build muscle~\cite{srs}.
+
+The Virtual Fitness Trainer database system solves this by keeping all user data, generated
+plans, exercise information, and progress records in one well-organized relational database.
+This makes it easy to create personalized plans, track daily progress, and show users how
+they are improving over time.
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Objectives}
+
+The main goals of the Virtual Fitness Trainer database system are:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{O-\arabic*.}]
+
+  \item \textbf{Design a proper database structure:} Create a well-organized set of tables
+  that stores all data needed by the system, like users, plans, exercises, meals, progress
+  logs, and reports without repeating the same data in multiple places.
+
+  \item \textbf{Store user health and profile data:} Save each user's name, age, gender,
+  height, weight, health conditions, and fitness goals so that the AI can use this
+  information to create the right plan for each person.
+
+  \item \textbf{Manage workout and diet plans:} Allow the system to create, save, update,
+  and delete workout and diet plans for each user. Each plan should be linked to the user
+  it belongs to.
+
+  \item \textbf{Track daily progress:} Keep a daily record of each user's completed
+  exercises, weight, body measurements, and energy level so that the system can show
+  progress over time.
+
+  \item \textbf{Support weekly and monthly reports:} Store enough summary data so that
+  the system can quickly generate progress reports for any time period the user selects.
+
+  \item \textbf{Keep data safe:} Make sure that passwords are stored in a secure way,
+  health information is protected, and each user can only see their own data.
+
+  \item \textbf{Build for growth:} Design the database so it can handle many users in the
+  future, at least 100,000 user accounts without slowing down.
+
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Scope}
+
+\subsection{What the System Includes}
+
+The following features are part of the Virtual Fitness Trainer system~\cite{srs,proposal}:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{User accounts:} Registration, login, and profile management including
+  personal details, physical measurements, and health conditions.
+
+  \item \textbf{Workout plans:} AI-generated weekly workout schedules stored per user,
+  with exercises, sets, reps, duration, rest days, and estimated calories burned.
+
+  \item \textbf{Diet plans:} Personalized weekly meal plans stored per user, with
+  breakfast, lunch, dinner, and snack details, calorie counts, and shopping lists.
+
+  \item \textbf{Exercise library:} A list of all available exercises with name, target
+  muscle group, difficulty level, and a reference to the video that shows how to do it.
+
+  \item \textbf{Daily progress logs:} Records of what the user completed each day,
+  including weight, body measurements, and energy levels.
+
+  \item \textbf{Progress reports:} Weekly and monthly summaries showing how the user
+  is doing compared to their goals.
+
+  \item \textbf{Activity logs:} A record of important system events such as logins,
+  profile changes, and plan updates, for security and review purposes.
+\end{itemize}
+
+\subsection{What the System Does Not Include}
+
+The following are not part of this system:
+
+\begin{itemize}[leftmargin=*]
+  \item Connection to fitness wearable devices (e.g. smartwatches).
+  \item Social or community features (e.g. sharing plans with friends).
+  \item Payment or subscription management.
+  \item Storing actual video files (only links or references to videos are stored).
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Data Collection}
+
+The system collects and stores data from the following sources:
+
+\subsection{User Input During Registration}
+
+When a user signs up, they fill in a form with the following details, which are saved in the
+Users table~\cite{srs}:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Personal details:} Full name, email address, date of birth, and gender.
+  \item \textbf{Body measurements:} Height (in cm) and weight (in kg). The system
+  automatically calculates and saves the user's BMI using the formula:
+  $\text{BMI} = \frac{\text{weight (kg)}}{\text{height (m)}^2}$
+  \item \textbf{Health information:} Any existing health problems such as diabetes,
+  high blood pressure, joint pain, heart conditions, or asthma.
+  \item \textbf{Fitness goal:} Whether the user wants to lose weight, gain muscle,
+  or maintain their current fitness level.
+  \item \textbf{Activity level:} Whether the user is a beginner, intermediate, or
+  advanced, and how many days per week they want to work out.
+\end{itemize}
+
+\subsection{AI-Generated Plans}
+
+When the AI creates a workout or diet plan for a user, the plan is automatically saved in
+the database and linked to that user's account~\cite{srs}.
+
+\subsection{Daily Progress Entries}
+
+Users manually enter their daily data, such as which exercises they completed, their
+weight for the day, and how they felt, and this is saved in the Progress table with the
+date and time.
+
+\subsection{Exercise and Recipe Reference Data}
+
+Before the system goes live, the database will be filled with:
+
+\begin{itemize}[leftmargin=*]
+  \item At least 200 exercises, each with a description, target muscle group, and
+  difficulty level, taken from standard exercise references.
+  \item At least 500 recipes with ingredients, portion sizes, and nutrition values,
+  based on standard dietary guidelines including the Mifflin-St Jeor calorie
+  equation~\cite{mifflin}.
+\end{itemize}
+
+\subsection{System Activity Logs}
+
+The system automatically records important events like when someone logs in, changes
+their profile, or generates a new plan in an audit log table.
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Technology Stack}
+The table below lists all the tools and technologies used to build the Virtual Fitness Trainer system, along with the reason for choosing each one.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} p{3.8cm} X}
+\toprule
+\textbf{Layer} & \textbf{Technology} & \textbf{Reason for Choosing} \\
+\midrule
+
+Database & MySQL 8.0 &
+  Stores all user data, plans, and progress in organized tables with proper relationships. Required by the course for relational database design. \\
+\addlinespace
+
+ORM / Query Tool & SQLAlchemy + Flask-Migrate &
+  SQLAlchemy lets us work with the database using Python code instead of raw SQL. Flask-Migrate updates the database tables safely when the design changes. \\
+\addlinespace
+
+Backend & Flask 3.0 (Python) &
+  A simple Python web framework that handles user requests like login, registration, and plan generation. Easy to learn and works well with MySQL. \\
+\addlinespace
+
+Authentication & Flask-Login + Flask-Bcrypt + PyJWT &
+  Flask-Login protects pages that require login. Flask-Bcrypt stores passwords in encrypted form. PyJWT creates secure links for email verification and password reset. \\
+\addlinespace
+
+Frontend & Jinja2 Templates + Bootstrap 5 &
+  Jinja2 builds the HTML pages dynamically using Python. Bootstrap 5 makes the pages look clean and work on both desktop and mobile screens. \\
+\addlinespace
+
+Charts \& Analytics & Chart.js &
+  Draws weight and energy charts on the progress and reports pages. \\
+\addlinespace
+
+Form Validation & Flask-WTF + WTForms &
+  Checks all user inputs such as password strength, age, and height before saving to the database. Also protects forms from common web attacks. \\
+\addlinespace
+
+Email Service & Flask-Mail + Gmail SMTP &
+  Sends verification emails when a user registers and password reset links when requested. Uses a Gmail account to send the emails. \\
+\addlinespace
+
+PDF Reports & ReportLab &
+  Creates downloadable PDF progress reports for the user. \\
+\addlinespace
+
+AI Integration & Google Gemini API &
+  Generates personalized workout and diet plans based on the user's health data and goals. \\
+\addlinespace
+
+Configuration & python-.env &
+  Reads the database password, API keys, and email settings from a private \texttt{.env} file so sensitive information is never saved in the code. \\
+\addlinespace
+
+Version Control & Git + GitHub &
+  Stores the project work online in the repository \cite{github} \\
+\addlinespace
+
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{0.3cm}
+\textit{Note: The original SRS document specified MongoDB, Node.js, and TensorFlow. For this CSC-271 Database Systems course project, the stack was intentionally revised to use MySQL with a fully relational schema, Python/Flask throughout, and the Google Gemini API in place of a custom-trained ML model. This change was made because the course requires proper relational database design with tables, foreign keys, normalization, and SQL queries.}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{System Functionality}
+
+The list below shows the key things the system will do for users. These are based on the
+functional requirements FR-1 to FR-9 from the SRS, rewritten to focus on what the
+database does~\cite{srs}.
+
+\begin{enumerate}[leftmargin=*, label=\textbf{SF-\arabic*.}, itemsep=5pt]
+
+  \item \textbf{User Registration and Profile Storage:}
+  New users can sign up by entering their name, email, password, date of birth, gender,
+  height, weight, health conditions, and fitness goal. All this information is checked
+  and saved in the Users table. Passwords are stored in a secure encrypted form. Each
+  user gets a unique ID. The system does not allow two accounts with the same email.
+
+  \item \textbf{User Login:}
+  When a user logs in, the system checks their email and password against what is stored
+  in the database. If correct, the user gets access. If the password is wrong five times
+  in a row, the account is locked for 30 minutes. Login attempts are recorded in a
+  separate table.
+
+  \item \textbf{Workout Plan Generation and Storage:}
+  The system reads the user's profile from the database and passes it to the AI model.
+  The AI creates a workout plan which is then saved in the WorkoutPlans table, linked
+  to the user by their ID. The plan includes a weekly schedule, exercises with sets and
+  reps, rest days, and estimated calories burned.
+
+  \item \textbf{Diet Plan Generation and Storage:}
+  The system calculates the user's daily calorie needs from their stored profile data
+  and passes dietary preferences to the AI. The AI creates a diet plan which is saved
+  in the DietPlans table. Meals are linked to the Recipes table so the full nutrition
+  details are available.
+
+  \item \textbf{Workout Video Demonstration:}
+  Each exercise in the system is stored in the Exercises table with its name, target
+  muscles, difficulty, tips for correct form, and a link to a demonstration video. When
+  a user selects an exercise, the system fetches this information and shows the video.
+  Watched videos are logged to help track user activity.
+
+  \item \textbf{Daily Progress Logging:}
+  Users can record their daily progress -- which exercises they completed, their weight
+  for the day, body measurements, and how they felt (energy level 1--5). This is saved
+  in the ProgressLogs table with the date. The system does not allow two entries for
+  the same user on the same date.
+
+  \item \textbf{Weekly and Monthly Progress Reports:}
+  The system reads progress data from the ProgressLogs table for a chosen time period
+  and calculates total workouts done, weight changes, and consistency. A report summary
+  is saved and can be downloaded as a PDF.
+
+  \item \textbf{Plan Change Recommendations:}
+  Every four weeks, the system checks the user's progress. If no progress has been made
+  for two or more weeks, the system suggests changes to the plan. Suggestions are saved
+  in a Recommendations table. The user can accept, change, or ignore the suggestion.
+
+  \item \textbf{User Profile Updates:}
+  Users can view and update their profile at any time. Changes are checked before being
+  saved. All profile changes are recorded in the AuditLogs table with a timestamp. If
+  important details like weight or health conditions are changed, the system tells the
+  user their current plan may need to be updated.
+
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{User Classes}
+
+The table below shows the different types of users in the system and what they are allowed
+to do~\cite{srs,proposal}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3cm} X p{3.5cm}}
+\toprule
+\textbf{User Type} & \textbf{Role and Responsibilities} & \textbf{Database Access} \\
+\midrule
+End User &
+  The main users of the system. They sign up, fill in their health details, get workout
+  and diet plans, log daily progress, watch exercise videos, and view their progress
+  reports. Each user can only see and change their own data. &
+  Read and write access to their own data only. \\
+\addlinespace
+Guest User &
+  A visitor who has not created an account. Can only see general information about the
+  system. Cannot use any features that require login or access any stored data. &
+  No database access. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Task Division}
+The whole system is divided into three subsystems:
+
+\begin{itemize}
+    \item \textbf{Subsystem 1: User Management \& Profile} (tables for users, login, health info, BMI, profile updates — linked to SRS FR-1, FR-2, FR-9) \\
+    \textbf{Main Leader:} Muhammad Wasif (NUM-BSCS-2024-59)
+    
+    \item \textbf{Subsystem 2: Workout Plans \& Exercise Library} (tables for workout plans, exercises, videos, and recommendations — linked to SRS FR-3, FR-5, FR-8) \\
+    \textbf{Main Leader:} Muhammad Shahid (NUM-BSCS-2024-56)
+    
+    \item \textbf{Subsystem 3: Diet Plans, Progress Tracking \& Reporting} (tables for diet plans, meals, daily progress, reports, and activity logs — linked to SRS FR-4, FR-6, FR-7) \\
+    \textbf{Main Leader:} Hifza Bibi (NUM-BSCS-2024-27)
+\end{itemize}
+
+\textbf{Who does what in each phase (everyone still helps):}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|p{2.8cm}|p{3.2cm}|p{3.2cm}|p{3.2cm}|}
+\hline
+\textbf{Phase} & \textbf{Muhammad Wasif} & \textbf{Muhammad Shahid} & \textbf{Hifza Bibi} \\
+\hline
+\textbf{ERD Design} 
+& Leads User tables \& links & Leads Workout \& Exercise tables & Leads Diet \& Progress tables \\
+
+\hline
+\textbf{Database Implementation} 
+& Creates User/Profile tables, rules, triggers & Creates Workout/Exercise tables \& views & Creates Diet/Progress/Report tables \\
+
+\hline
+\textbf{GUI Application} 
+& Makes user login \& profile screens & Makes workout plan \& video screens & Makes diet, progress \& report screens \\
+
+\hline
+\textbf{Documentation \& Report} 
+& Writes full report + User section & Writes Workout section + GitHub README & Writes Diet/Progress section + AI appendix \\
+\hline
+\textbf{Exhibition \& Viva} 
+& Presents User part & Presents Workout part & Presents Diet/Progress part \\
+
+\hline
+\end{tabular}
+\caption{Primary work per phase (Everyone helps in every phase)}
+\end{table}
+
+\section{Conclusion}
+
+This proposal presents the plan for building the database system for the Virtual Fitness
+Trainer. The system will use a relational database (MySQL) to store all user data, workout
+and diet plans, exercise information, daily progress records, and activity logs in a clean
+and organized way.
+
+The system is different from other fitness apps because it stores each user's health
+conditions and personal details, which allows the AI to create plans that are right for
+that specific person. The database is also designed to track progress over time, which
+helps users see how they are improving and helps the system suggest better plans.
+
+The expected benefits of this system are: users will get fitness plans that match their
+personal health needs, they will be able to track their daily progress easily, and they
+will stay motivated by seeing clear reports of their improvement. The system is also built
+to stay secure, keeping health data private and protected.
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{srs}
+M. Wasif, M. Shahid, and H. Bibi,
+\textit{Software Requirements Specification for Virtual Fitness Trainer, Version 2.0},
+Namal University, Mianwali, Department of Computer Science, December 28, 2025.
+
+\bibitem{mifflin}
+M. D. Mifflin, S. T. St Jeor, L. A. Hill, B. J. Scott, S. A. Daugherty, and Y. O. Koh,
+``A new predictive equation for resting energy expenditure in healthy individuals,''
+\textit{American Journal of Clinical Nutrition}, vol. 51, no. 2, pp. 241--247, Feb. 1990.
+
+\bibitem{github}
+M. Wasif,
+\textit{Virtual Fitness Trainer -- GitHub Repository},
+2025. [Online]. Available: \url{https://github.com/wasif-cmd/Virtual-Fitness-Trainer}.
+[Accessed: March 2026].
+
+\bibitem{bodbot}
+BodBot,
+``BodBot Personal Trainer,''
+\textit{Google Play Store}, 2025. [Online]. Available:
+\url{https://play.google.com/store/apps/details?id=com.bodbot.trainer}.
+[Accessed: November 8, 2025].
+
+\bibitem{homeworkout}
+Leap Fitness Group,
+``Home Workout -- No Equipment,''
+\textit{Google Play Store}, 2025. [Online]. Available:
+\url{https://play.google.com/store/apps/details?id=homeworkout.homeworkouts.noequipment}.
+[Accessed: November 7, 2025].
+
+\end{thebibliography}
+
+% ── Appendix ──────────────────────────────────────────────────────────────────
+\newpage
+\appendix
+\section{Appendix 1: AI Tool Usage in Report Preparation}
+
+This section has the usage of the AI Tool during report preparation. All interactions were done using Claude (Anthropic) and Grok
+in March 2026.
+
+\begin{longtable}{>{\bfseries}p{0.6cm} p{5.5cm} p{5cm} p{2.5cm}}
+\toprule
+\textbf{No.} & \textbf{Prompt Used} & \textbf{Purpose} & \textbf{Date} \\
+\midrule
+\endhead
+
+1 &
+You are an expert academic LaTeX writer with 10+ years of experience writing university project reports. Your task is to generate complete, clean, professional, and fully compilable LaTeX code for CSC-271 Database Systems – Complex Computing Problem Milestone 1 Proposal Report titled "Database System Proposal for Virtual Fitness Trainer".
+Use exactly the structure and sections required by the assignment (CCP - Milestone 1.pdf). Do not add or remove any section.
+Required sections in exact order &
+Full report's LaTeX code generation. &
+March 6, 2026 \\
+\addlinespace
+
+2 &
+I want to make a website on local host(database will be on my PC/Laptop) from SRS and database proposal so your task is to give me the list of tools or setups that i must have to run the code(anyother required thing) on my laptop.....i will use mysql dbms and gemini api generate diet plan(I have no plan to make AI model as it is lengthy)? &
+Technologies Stack Decisions &
+March 8, 2026\\
+\addlinespace
+
+3 &
+i have to divide the task of project of database so i give you some files...you have to analyze all documents including SRS,outline,project proposal...etc....and then you have to divide the whole system into three parts(as we are three members) fairly and equally  &
+Division of the system &
+March 7, 2026 \\
+\addlinespace
+4 &
+The virtual fitness trainer is a software system that helps people imporve their health
+and fitness. It give each user a personlized workout plan and diet plan based on they own
+health condition, body measurments, and fitness goals.
+Today, many people wants to get fit but do not have access to a personal trainer or proper
+fitness guidance. Some fitness apps is available, like BodBot and Home workout-no
+equipment, but these apps give the same plan to every one. They does not consider
+whether a person have a health problem like diabities, joint pain, or heart disease.......check gramatica mistake and write agan in correct wording and tense &
+Removal of Grammatical Mistakes &
+March 9,2026 \\
+\addlinespace
+5 &
+you are an expert in judging tools and technologies to develop a complete website.....I provided you the SRS and my DB project proposal you have to judge technology stack part of proposal is all the technologies or enough to develop a fully functional website with database integration? Do you have any best recommendations for technology stack to refrain from any incoveniency in future for its development? &
+Technology Stack Judgement &
+March 12,2026 \\
+\addlinespace
+6 &
+table has a large width so it is not clearly readale so organize it in such a way that its width is small and text is easily readable &
+Table Structuring &
+March 10,2026 \\
+\addlinespace
+7 &
+Analyze the updated DB project proposal and then check that is everything fine or anythings need improvement and also all things are not contradictory &
+Proposal Evaluation &
+March 12,2026 \\
+\addlinespace
+\bottomrule
+\caption{AI Tool Usage During Preparation of CCP Milestone 1 Report}
+\end{longtable}
+
+\noindent\textbf{AI Tools Used:}
+\begin{itemize}
+    \item \textbf{Grok} by xAI -- \url{https://x.ai/}
+    \item \textbf{Claude} by Anthropic -- \url{https://www.anthropic.com}
+    \item \textbf{ChatGPT} by OpenAI -- \url{https://openai.com/}
+\end{itemize}
+\noindent\textbf{Access Period:} March 2026\\
+\textbf{Purpose:} Help with report writing, LaTeX formatting, grammar correction, technology stack selection, task division, and content structuring.
+
+\end{document}
